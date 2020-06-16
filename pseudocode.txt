@@ -1,0 +1,60 @@
+STEP 1: 
+    read the JSON and create the tree, calculate the number of nods of each subtree
+    
+STEP 2:
+    calculate the relative coordiante (right_heavy)
+
+STEP 3:
+    draw the tree with d3.js
+
+
+tree_node = {
+                id <- node index
+                sx <- left tree_node
+                dx <- tree_node destro
+                n_sx <- number of nodes of left subtree
+                n_dx <- number of nodes of right subtree
+            }
+
+
+
+// O(n)
+nodes_subtree(node):
+    if node is a leaf:
+        return 1
+    
+    node.n_dx = nodes_subtree(node.dx)
+    node.n_sx = nodes_subtree(node.sx)
+    return node.n_dx + node.n_sx + 1
+
+
+
+// O(n)
+rh(node):
+
+    // as in the paper: each node has 0 or 2 nodes
+    // in ogni sottoalbero, la radice conosce la lunghezza orizzontale 
+    // root nodes of each subtree knows the horizontal length of its subtree
+    
+    if node is a leaf:
+        
+        node.lung_or = 0 // horizontal length
+        
+    else
+
+        //node = T[node_idx]
+
+        //disegno il sinistro
+        rh(T, node.sx)
+
+        //disegno il destro
+        rh(T, node.dx)
+
+        if node.n_dx > node.n_sx:
+            node.sx.p = (0, 1)
+            node.dx.p = (node.sx.lung_or + 1, 0)
+        else 
+            node.dx.p = (0, 1)
+            node.sx.p = (node.dx.lung_or + 1, 0)
+
+        node.lung_or = node.dx.lung_or + node.sx.lung_or + 1
