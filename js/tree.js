@@ -26,11 +26,11 @@ d3.json("data/input.json")
             })
         })
 
-is_leaf = (tree_node) => tree_node.sx === null && tree_node.dx === null
+is_leaf = (tree_node) => tree_node.sx === undefined && tree_node.dx === undefined
 sum_point = (point1, point2) => [point1[0] + point2[0], point1[1] + point2[1]]
 
 function size_subtrees(tree_node) {
-    if (tree_node === null) {
+    if (tree_node === undefined) {
         return 0;
     } else {
         tree_node.size_dx = size_subtrees(tree_node.dx)
@@ -40,10 +40,10 @@ function size_subtrees(tree_node) {
 }
 
 function right_heavy(tree_node) {
+    tree_node.rpoint = [0, 0]
 
     if (is_leaf(tree_node)) {
         tree_node.hlength = 0
-        tree_node.rpoint = [0, 0]
     } else {
 
         //disegno il primo sottoalbero
