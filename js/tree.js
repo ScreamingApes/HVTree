@@ -23,8 +23,8 @@ d3.json("data/input.json")
             })
         })
 
-is_leaf(tree_node) = tree_node.sx === null && tree_node.dxx === null
-sum_point(point1, point2) = [point1[0] + point2[0], point1[1] + point2[1]]
+is_leaf = (tree_node) => tree_node.sx === null && tree_node.dx === null
+sum_point = (point1, point2) => [point1[0] + point2[0], point1[1] + point2[1]]
 
 function size_subtrees(tree_node) {
     if (tree_node === null) {
@@ -70,4 +70,5 @@ function absolute_points(tree_node, start_point) {
         absolute_points(tree_node.sx, tree_node.apoint)
         absolute_points(tree_node.dx, tree_node.apoint)
     }
+
 }
