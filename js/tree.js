@@ -1,22 +1,22 @@
-var nodeTree = {}
-var mapNodes = d3.map({})
+var tree = {}
+var map_nodes = d3.map({})
 
 d3.json("data/input.json")
-        .then(function(tree){
-            tree.nodes.forEach(element => {
+        .then(function(data){
+            data.nodes.forEach(element => {
                 let node = {}
                 node.id = element.id
 
                 if (element.id == 0){
-                    nodeTree = node
+                    tree = node
                 }
                 
-                mapNodes.set(node.id, node)
+                map_nodes.set(node.id, node)
             });
             
-            tree.edges.forEach(element =>{
-                let source = mapNodes.get(element.source)
-                let target = mapNodes.get(element.target)
+            data.edges.forEach(element =>{
+                let source = map_nodes.get(element.source)
+                let target = map_nodes.get(element.target)
                 
                 if (element.order === 0){
                     source.sx = target
