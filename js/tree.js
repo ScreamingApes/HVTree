@@ -1,6 +1,15 @@
 is_leaf(tree_node) = tree_node.sx === null && tree_node.dxx === null
 sum_point(point1, point2) = [point1[0] + point2[0], point1[1] + point2[1]]
 
+function size_subtrees(tree_node) {
+    if (tree_node === null) {
+        return 0;
+    } else {
+        tree_node.size_dx = size_subtrees(tree_node.dx)
+        tree_node.size_sx = size_subtrees(tree_node.sx)
+        return tree_node.size_dx + tree_node.size_sx + 1
+    }
+}
 
 function right_heavy(tree_node) {
 
