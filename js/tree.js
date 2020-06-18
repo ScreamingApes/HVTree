@@ -1,33 +1,8 @@
 var tree = {}
 var map_nodes = d3.map({})
-const unit_length = 30
+const unit_length = 50
 const start_point = [1, 1]
-const radius = 10
-
-d3.json("data/tree2.json")
-    .then(function (data) {
-        data.nodes.forEach(element => {
-            let node = {}
-            node.id = element.id
-            node.label = element.label
-            if (element.id == 0) {
-                tree = node
-            }
-
-            map_nodes.set(node.id, node)
-        });
-
-        data.edges.forEach(element => {
-            let source = map_nodes.get(element.source)
-            let target = map_nodes.get(element.target)
-
-            if (element.order === 0) {
-                source.sx = target
-            } else {
-                source.dx = target
-            }
-        })
-    })
+const radius = 15
 
 is_leaf = (tree_node) => tree_node.sx === undefined && tree_node.dx === undefined
 sum_point = (point1, point2) => [point1[0] + point2[0], point1[1] + point2[1]]
@@ -108,7 +83,8 @@ function draw_tree(tree_node) {
         .attr("y1", edge => edge.start[1] * unit_length)
         .attr("x2", edge => edge.end[0] * unit_length)
         .attr("y2", edge => edge.end[1] * unit_length)
-        .attr("stroke", "black")
+        .attr("stroke", "blue")
+        .attr("stroke-width", 3)
 
     svg.selectAll("circle")
         .data(tree_node)
@@ -118,24 +94,49 @@ function draw_tree(tree_node) {
         .attr("cy", node => node.apoint[1] * unit_length)
         .attr("r", radius)
         .attr("fill", "white")
-        .attr("stroke", "black")
+        .attr("stroke", "red")
+        .attr("stroke-width", 3)
     
     svg.selectAll("text")
         .data(tree_node)
         .enter()
         .append("text")
         .attr("x", node => node.apoint[0] * unit_length)
-        .attr("y", node => node.apoint[1] * unit_length + radius/2 )
+        .attr("y", node => node.apoint[1] * unit_length + 5)
         .text(node => node.label)
         .attr("style", "text-anchor: middle;")
 
 
-    
 }
 
-function all() {
-    d3.select("body").append("svg").attr("width", 500).attr("height", 500)
-    right_heavy(tree)
-    absolute_points(tree, start_point)
-    draw_tree(map_nodes.values())
+function main() {
+    d3.json("data/tree2.json")
+    .then(function (data) {
+        data.nodes.forEach(element => {
+            let node = {}
+            node.id = element.id
+            node.label = element.label
+            if (element.id == 0) {
+                tree = node
+            }
+
+            map_nodes.set(node.id, node)
+        });
+
+        data.edges.forEach(element => {
+            let source = map_nodes.get(element.source)
+            let target = map_nodes.get(element.target)
+
+            if (element.order === 0) {
+                source.sx = target
+            } else {
+                source.dx = target
+            }
+        })
+        d3.select("body").append("svg").attr("width", 500).attr("height", 500)
+        size_subtrees(tree)
+        right_heavy(tree)
+        absolute_points(tree, start_point)
+        draw_tree(map_nodes.values())
+    })
 }
