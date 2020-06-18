@@ -83,7 +83,7 @@ function draw_tree(tree_node) {
         .attr("y1", edge => edge.start[1] * unit_length)
         .attr("x2", edge => edge.end[0] * unit_length)
         .attr("y2", edge => edge.end[1] * unit_length)
-        .attr("stroke", "blue")
+        .attr("stroke", "red")
         .attr("stroke-width", 3)
 
     svg.selectAll("circle")
@@ -94,7 +94,7 @@ function draw_tree(tree_node) {
         .attr("cy", node => node.apoint[1] * unit_length)
         .attr("r", radius)
         .attr("fill", "white")
-        .attr("stroke", "red")
+        .attr("stroke", "blue")
         .attr("stroke-width", 3)
     
     svg.selectAll("text")
