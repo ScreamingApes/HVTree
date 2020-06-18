@@ -1,30 +1,31 @@
 var tree = {}
 var map_nodes = d3.map({})
+const unit_length = 20
 
 d3.json("data/input.json")
-        .then(function(data){
-            data.nodes.forEach(element => {
-                let node = {}
-                node.id = element.id
+    .then(function (data) {
+        data.nodes.forEach(element => {
+            let node = {}
+            node.id = element.id
 
-                if (element.id == 0){
-                    tree = node
-                }
-                
-                map_nodes.set(node.id, node)
-            });
-            
-            data.edges.forEach(element =>{
-                let source = map_nodes.get(element.source)
-                let target = map_nodes.get(element.target)
-                
-                if (element.order === 0){
-                    source.sx = target
-                }else{
-                    source.dx = target
-                }
-            })
+            if (element.id == 0) {
+                tree = node
+            }
+
+            map_nodes.set(node.id, node)
+        });
+
+        data.edges.forEach(element => {
+            let source = map_nodes.get(element.source)
+            let target = map_nodes.get(element.target)
+
+            if (element.order === 0) {
+                source.sx = target
+            } else {
+                source.dx = target
+            }
         })
+    })
 
 is_leaf = (tree_node) => tree_node.sx === undefined && tree_node.dx === undefined
 sum_point = (point1, point2) => [point1[0] + point2[0], point1[1] + point2[1]]
@@ -74,4 +75,24 @@ function absolute_points(tree_node, start_point) {
         absolute_points(tree_node.dx, tree_node.apoint)
     }
 
+}
+
+function draw_tree(tree_node) {
+
+    var svg = d3.select("svg")
+
+    svg.selectAll("circle")
+        .data(tree_node)
+        .enter()
+        .append("circle")
+        .attr("cx", node => node.apoint[0] * unit_length)
+        .attr("cy", node => node.apoint[1] * unit_length)
+        .attr("r", 4)
+}
+
+function all() {
+    d3.select("body").append("svg").attr("width", 500).attr("height", 500)
+    right_heavy(tree)
+    absolute_points(tree, [10, 10])
+    draw_tree(map_nodes.values())
 }
