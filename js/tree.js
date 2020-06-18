@@ -1,7 +1,7 @@
 var tree = {}
 var map_nodes = d3.map({})
 const unit_length = 30
-const start_point = [10, 10]
+const start_point = [1, 1]
 const radius = 10
 
 d3.json("data/tree2.json")
@@ -79,16 +79,43 @@ function absolute_points(tree_node, start_point) {
 
 }
 
+function get_edges(tree_node) {
+    var edges = []
+
+    function g_e(tree_node) {
+        if (!is_leaf(tree_node)) {
+            edges.push({start: tree_node.apoint, end: tree_node.sx.apoint})
+            edges.push({start: tree_node.apoint, end: tree_node.dx.apoint})
+            g_e(tree_node.sx)
+            g_e(tree_node.dx)
+        }
+    }
+    
+    g_e(tree_node)
+    return edges
+}
+
 function draw_tree(tree_node) {
 
     var svg = d3.select("svg")
+    var edges = get_edges(tree)
+
+    svg.selectAll("line")
+        .data(edges)
+        .enter()
+        .append("line")
+        .attr("x1", edge => edge.start[0] * unit_length)
+        .attr("y1", edge => edge.start[1] * unit_length)
+        .attr("x2", edge => edge.end[0] * unit_length)
+        .attr("y2", edge => edge.end[1] * unit_length)
+        .attr("stroke", "black")
 
     svg.selectAll("circle")
         .data(tree_node)
         .enter()
         .append("circle")
-        .attr("cx", node => node.id === 0 ? node.apoint[0] : node.apoint[0] * unit_length)
-        .attr("cy", node => node.id === 0 ? node.apoint[1] : node.apoint[1] * unit_length)
+        .attr("cx", node => node.apoint[0] * unit_length)
+        .attr("cy", node => node.apoint[1] * unit_length)
         .attr("r", radius)
         .attr("fill", "white")
         .attr("stroke", "black")
