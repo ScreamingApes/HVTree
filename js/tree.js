@@ -3,6 +3,8 @@ var map_nodes = d3.map({})
 const unit_length = 50
 const start_point = [1, 1]
 const radius = 15
+const width = window.innerWidth
+const height = window.innerHeight
 
 is_leaf = (tree_node) => tree_node.sx === undefined && tree_node.dx === undefined
 sum_point = (point1, point2) => [point1[0] + point2[0], point1[1] + point2[1]]
@@ -18,11 +20,11 @@ function size_subtrees(tree_node) {
 }
 
 function right_heavy(tree_node) {
-    tree_node.rpoint = [0, 0]
 
     if (tree_node === undefined) {
         return;
     }
+    tree_node.rpoint = [0, 0]
 
     if (is_leaf(tree_node)) {
         tree_node.hlength = 0
@@ -75,9 +77,14 @@ function get_edges(tree_node) {
     var edges = []
 
     function g_e(tree_node) {
+        if (tree_node === undefined) {
+            return;
+        }
         if (!is_leaf(tree_node)) {
-            edges.push({ start: tree_node.apoint, end: tree_node.sx.apoint })
-            edges.push({ start: tree_node.apoint, end: tree_node.dx.apoint })
+            if (tree_node.sx !== undefined)
+                edges.push({ start: tree_node.apoint, end: tree_node.sx.apoint })
+            if (tree_node.dx !== undefined)
+                edges.push({ start: tree_node.apoint, end: tree_node.dx.apoint })
             g_e(tree_node.sx)
             g_e(tree_node.dx)
         }
@@ -127,7 +134,7 @@ function draw_tree(tree_node) {
 }
 
 function main() {
-    d3.json("data/tree2.json")
+    d3.json("data/tree30.json")
         .then(function (data) {
             data.nodes.forEach(element => {
                 let node = {}
@@ -150,7 +157,7 @@ function main() {
                     source.dx = target
                 }
             })
-            d3.select("body").append("svg").attr("width", 500).attr("height", 500)
+            d3.select("body").append("svg").attr("width", width).attr("height", height)
             size_subtrees(tree)
             right_heavy(tree)
             absolute_points(tree, start_point)
