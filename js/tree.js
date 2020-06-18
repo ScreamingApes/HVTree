@@ -20,6 +20,10 @@ function size_subtrees(tree_node) {
 function right_heavy(tree_node) {
     tree_node.rpoint = [0, 0]
 
+    if (tree_node === undefined) {
+        return;
+    }
+
     if (is_leaf(tree_node)) {
         tree_node.hlength = 0
     } else {
@@ -30,15 +34,23 @@ function right_heavy(tree_node) {
         //disegno il secondo sottoalbero
         right_heavy(tree_node.dx)
 
-        if (tree_node.size_dx > tree_node.size_sx) {
-            tree_node.sx.rpoint = [0, 1]
-            tree_node.dx.rpoint = [tree_node.sx.hlength + 1, 0]
+        if (tree_node.sx === undefined) {
+            tree_node.dx.rpoint = [1, 0]
+            tree_node.hlength = tree_node.dx.hlength + 1
+        } else if (tree_node.dx === undefined) {
+            tree_node.sx.rpoint = [1, 0]
+            tree_node.hlength = tree_node.sx.hlength + 1
         } else {
-            tree_node.dx.rpoint = [0, 1]
-            tree_node.sx.rpoint = [tree_node.dx.hlength + 1, 0]
-        }
 
-        tree_node.hlength = tree_node.dx.hlength + tree_node.sx.hlength + 1
+            if (tree_node.size_dx > tree_node.size_sx) {
+                tree_node.sx.rpoint = [0, 1]
+                tree_node.dx.rpoint = [tree_node.sx.hlength + 1, 0]
+            } else {
+                tree_node.dx.rpoint = [0, 1]
+                tree_node.sx.rpoint = [tree_node.dx.hlength + 1, 0]
+            }
+            tree_node.hlength = tree_node.dx.hlength + tree_node.sx.hlength + 1
+        }
 
     }
 
@@ -46,7 +58,12 @@ function right_heavy(tree_node) {
 
 function absolute_points(tree_node, start_point) {
 
+    if (tree_node === undefined) {
+        return
+    }
+
     tree_node.apoint = sum_point(start_point, tree_node.rpoint)
+
     if (!is_leaf(tree_node)) {
         absolute_points(tree_node.sx, tree_node.apoint)
         absolute_points(tree_node.dx, tree_node.apoint)
@@ -59,13 +76,13 @@ function get_edges(tree_node) {
 
     function g_e(tree_node) {
         if (!is_leaf(tree_node)) {
-            edges.push({start: tree_node.apoint, end: tree_node.sx.apoint})
-            edges.push({start: tree_node.apoint, end: tree_node.dx.apoint})
+            edges.push({ start: tree_node.apoint, end: tree_node.sx.apoint })
+            edges.push({ start: tree_node.apoint, end: tree_node.dx.apoint })
             g_e(tree_node.sx)
             g_e(tree_node.dx)
         }
     }
-    
+
     g_e(tree_node)
     return edges
 }
@@ -96,7 +113,7 @@ function draw_tree(tree_node) {
         .attr("fill", "white")
         .attr("stroke", "blue")
         .attr("stroke-width", 3)
-    
+
     svg.selectAll("text")
         .data(tree_node)
         .enter()
@@ -111,32 +128,32 @@ function draw_tree(tree_node) {
 
 function main() {
     d3.json("data/tree2.json")
-    .then(function (data) {
-        data.nodes.forEach(element => {
-            let node = {}
-            node.id = element.id
-            node.label = element.label
-            if (element.id == 0) {
-                tree = node
-            }
+        .then(function (data) {
+            data.nodes.forEach(element => {
+                let node = {}
+                node.id = element.id
+                node.label = element.label
+                if (element.id == 0) {
+                    tree = node
+                }
 
-            map_nodes.set(node.id, node)
-        });
+                map_nodes.set(node.id, node)
+            });
 
-        data.edges.forEach(element => {
-            let source = map_nodes.get(element.source)
-            let target = map_nodes.get(element.target)
+            data.edges.forEach(element => {
+                let source = map_nodes.get(element.source)
+                let target = map_nodes.get(element.target)
 
-            if (element.order === 0) {
-                source.sx = target
-            } else {
-                source.dx = target
-            }
+                if (element.order === 0) {
+                    source.sx = target
+                } else {
+                    source.dx = target
+                }
+            })
+            d3.select("body").append("svg").attr("width", 500).attr("height", 500)
+            size_subtrees(tree)
+            right_heavy(tree)
+            absolute_points(tree, start_point)
+            draw_tree(map_nodes.values())
         })
-        d3.select("body").append("svg").attr("width", 500).attr("height", 500)
-        size_subtrees(tree)
-        right_heavy(tree)
-        absolute_points(tree, start_point)
-        draw_tree(map_nodes.values())
-    })
 }
