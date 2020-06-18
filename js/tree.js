@@ -1,13 +1,15 @@
 var tree = {}
 var map_nodes = d3.map({})
-const unit_length = 20
+const unit_length = 30
+const start_point = [10, 10]
+const radius = 10
 
-d3.json("data/input.json")
+d3.json("data/tree2.json")
     .then(function (data) {
         data.nodes.forEach(element => {
             let node = {}
             node.id = element.id
-
+            node.label = element.label
             if (element.id == 0) {
                 tree = node
             }
@@ -85,14 +87,28 @@ function draw_tree(tree_node) {
         .data(tree_node)
         .enter()
         .append("circle")
-        .attr("cx", node => node.apoint[0] * unit_length)
-        .attr("cy", node => node.apoint[1] * unit_length)
-        .attr("r", 4)
+        .attr("cx", node => node.id === 0 ? node.apoint[0] : node.apoint[0] * unit_length)
+        .attr("cy", node => node.id === 0 ? node.apoint[1] : node.apoint[1] * unit_length)
+        .attr("r", radius)
+        .attr("fill", "white")
+        .attr("stroke", "black")
+    
+    svg.selectAll("text")
+        .data(tree_node)
+        .enter()
+        .append("text")
+        .attr("x", node => node.apoint[0] * unit_length)
+        .attr("y", node => node.apoint[1] * unit_length + radius/2 )
+        .text(node => node.label)
+        .attr("style", "text-anchor: middle;")
+
+
+    
 }
 
 function all() {
     d3.select("body").append("svg").attr("width", 500).attr("height", 500)
     right_heavy(tree)
-    absolute_points(tree, [10, 10])
+    absolute_points(tree, start_point)
     draw_tree(map_nodes.values())
 }
