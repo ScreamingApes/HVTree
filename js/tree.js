@@ -8,6 +8,7 @@ const height = window.innerHeight
 
 is_leaf = (tree_node) => tree_node.sx === undefined && tree_node.dx === undefined
 sum_point = (point1, point2) => [point1[0] + point2[0], point1[1] + point2[1]]
+one_child = (tree_node) => tree_node.sx === undefined || tree_node.dx === undefined
 
 function size_subtrees(tree_node) {
     if (tree_node === undefined) {
@@ -56,6 +57,67 @@ function right_heavy(tree_node) {
 
     }
 
+}
+
+function alternated_heavy(tree) {
+
+    function ah(tree_node, depth) {
+        if (tree_node === undefined) {
+            return;
+        }
+        tree_node.rpoint = [0, 0]
+
+        if (is_leaf(tree_node)) {
+            tree_node.hlength = 0
+            tree_node.vlength = 0
+        } else {
+
+            //disegno il primo sottoalbero
+            ah(tree_node.sx, depth + 1)
+
+            //disegno il secondo sottoalbero
+            ah(tree_node.dx, depth + 1)
+
+            if (one_child(tree_node)) {
+                child = tree_node.sx === undefined ? tree_node.dx : tree_node.sx
+                if (depth % 2 == 0) {
+                    child.rpoint = [1, 0]
+                    tree_node.hlength = child.hlength
+                    tree_node.vlength = child.vlength
+                } else {
+                    child.rpoint = [0, 1]
+                    tree_node.hlength = child.hlength
+                    tree_node.vlength = child.vlength + 1
+                }
+
+            } else {
+
+                // trovo il sottoalbero più grande e quello più piccolo
+                if (tree_node.size_dx > tree_node.size_sx) {
+                    bigger_subtree = tree_node.dx
+                    smaller_subtree = tree_node.sx
+                } else {
+                    bigger_subtree = tree_node.sx
+                    smaller_subtree = tree_node.dx
+                }
+
+                if (depth % 2 == 0) {
+                    smaller_subtree.rpoint = [0, 1]
+                    bigger_subtree.rpoint = [smaller_subtree.hlength + 1, 0]
+                } else {
+                    bigger_subtree.rpoint = [0, smaller_subtree.vlength + 1]
+                    smaller_subtree.rpoint = [1, 0]
+                }
+
+                tree_node.hlength = smaller_subtree.hlength + bigger_subtree.hlength + 1
+                tree_node.vlength = Math.max(bigger_subtree.vlength, smaller_subtree.vlength) + 1
+
+            }
+
+        }
+
+    }
+    ah(tree, 0)
 }
 
 function absolute_points(tree_node, start_point) {
@@ -134,7 +196,7 @@ function draw_tree(tree_node) {
 }
 
 function main() {
-    d3.json("data/tree30.json")
+    d3.json("data/tree100.json")
         .then(function (data) {
             data.nodes.forEach(element => {
                 let node = {}
@@ -159,7 +221,7 @@ function main() {
             })
             d3.select("body").append("svg").attr("width", width).attr("height", height)
             size_subtrees(tree)
-            right_heavy(tree)
+            alternated_heavy(tree)
             absolute_points(tree, start_point)
             draw_tree(map_nodes.values())
         })
