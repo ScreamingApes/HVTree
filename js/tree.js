@@ -121,7 +121,7 @@ function alternated_heavy(tree) {
                     } else {
                         tree_node.hlength = smaller_subtree.hlength + 1
                     }
-                    tree_node.vlength = bigger_subtree.vlength, smaller_subtree.vlength + 1
+                    tree_node.vlength = bigger_subtree.vlength + smaller_subtree.vlength + 1
                 }
                 
             
