@@ -82,7 +82,7 @@ function alternated_heavy(tree) {
                 child = tree_node.sx === undefined ? tree_node.dx : tree_node.sx
                 if (depth % 2 == 0) {
                     child.rpoint = [1, 0]
-                    tree_node.hlength = child.hlength
+                    tree_node.hlength = child.hlength + 1
                     tree_node.vlength = child.vlength
                 } else {
                     child.rpoint = [0, 1]
@@ -104,14 +104,27 @@ function alternated_heavy(tree) {
                 if (depth % 2 == 0) {
                     smaller_subtree.rpoint = [0, 1]
                     bigger_subtree.rpoint = [smaller_subtree.hlength + 1, 0]
+
+                    tree_node.hlength = bigger_subtree.hlength + smaller_subtree.hlength + 1
+
+                    if (bigger_subtree.vlength >= smaller_subtree.vlength + 1) {
+                        tree_node.vlength = bigger_subtree.vlength
+                    }else{
+                        tree_node.vlength = smaller_subtree.vlength + 1
+                    }
                 } else {
                     bigger_subtree.rpoint = [0, smaller_subtree.vlength + 1]
                     smaller_subtree.rpoint = [1, 0]
+
+                    if (bigger_subtree.hlength >= smaller_subtree.hlength + 1) {
+                        tree_node.hlength = bigger_subtree.hlength
+                    } else {
+                        tree_node.hlength = smaller_subtree.hlength + 1
+                    }
+                    tree_node.vlength = bigger_subtree.vlength, smaller_subtree.vlength + 1
                 }
-
-                tree_node.hlength = smaller_subtree.hlength + bigger_subtree.hlength + 1
-                tree_node.vlength = Math.max(bigger_subtree.vlength, smaller_subtree.vlength) + 1
-
+                
+            
             }
 
         }
