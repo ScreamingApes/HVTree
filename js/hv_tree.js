@@ -22,10 +22,7 @@ function init() {
 
 function draw() {
     var svg = d3.select("#canvas")
-    svg.select("#container").selectAll("line").remove()
-    svg.select("#container").selectAll("circle").remove()
-    svg.select("#container").selectAll("text").remove()
-    
+    svg.select("#container").selectAll('*').remove()
     d3.json(actual_filename)
         .then(function (data) {
             map_nodes = d3.map({})
