@@ -44,36 +44,43 @@
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select algorithm</button>
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select algorithm</button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
-                        <button class="dropdown-item" type="button" onClick="change_algorithm('right_heavy')">Right Heavy</button>
-                        <button class="dropdown-item" type="button" onClick="change_algorithm('alternated_heavy')">Alternate Heavy</button>
-                        <button class="dropdown-item" type="button" onClick="change_algorithm('random_heavy')">Random Heavy</button>
+                        <button class="dropdown-item" type="button" onClick="change_algorithm('right_heavy')">Right
+                            Heavy</button>
+                        <button class="dropdown-item" type="button"
+                            onClick="change_algorithm('alternated_heavy')">Alternate Heavy</button>
+                        <button class="dropdown-item" type="button" onClick="change_algorithm('random_heavy')">Random
+                            Heavy</button>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Select Tree</button>
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Select Tree</button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
                         <button class="dropdown-item" type="button" onClick="change_filename('tree1')">Tree 1</button>
                         <button class="dropdown-item" type="button" onClick="change_filename('tree2')">Tree 2</button>
                         <button class="dropdown-item" type="button" onClick="change_filename('tree30')">Tree 30</button>
-                        <button class="dropdown-item" type="button" onClick="change_filename('tree100')">Tree 100</button>
+                        <button class="dropdown-item" type="button" onClick="change_filename('tree100')">Tree
+                            100</button>
                     </div>
                 </li>
             </ul>
         </div>
     </nav>
 
+    <div>
+        <svg id="canvas"></svg>
 
-    <!--
-
-            <div class="d-flex mx-auto">
-                <form class="range-field">
-                    <input class="border-0" type="range" min="0" max="100"
-                        onchange="change_treshold(this.value / 100)" />
-                </form>
+        <div id="slider" class="card invisible"
+            style="z-index: 2001; position: absolute; bottom: 0px; right: 0px; margin: 20px;">
+            <div class="card-body">
+                <input class="border-0" type="range" min="0" max="100" onchange="change_treshold(this.value / 100)" />
             </div>
-    -->
+        </div>
+    </div>
+
     </nav>
     <script>init()</script>
 </body>

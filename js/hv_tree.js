@@ -11,7 +11,7 @@ function init() {
     actual_algorithm = 'right_heavy'
     actual_filename = 'data/tree30.json'
     // create svg
-    var svg = d3.select("body").append("svg").attr("width", width).attr("height", height).attr("id", "canvas")
+    var svg = d3.select("#canvas").attr("width", width).attr("height", height)
         .call(d3.zoom().on("zoom", function () {
             svg.attr("transform", d3.event.transform)
         }))
@@ -83,6 +83,11 @@ function change_filename(filename){
 
 function change_algorithm(algorithm){
     actual_algorithm = algorithm
+    if (algorithm === "random_heavy") {
+        document.getElementById("slider").classList.remove("invisible")
+    } else {
+        document.getElementById("slider").classList.add("invisible")
+    }
     redraw()
 }
 
