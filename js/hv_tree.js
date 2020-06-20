@@ -3,6 +3,7 @@ var map_nodes = d3.map({})
 const width = window.innerWidth
 const height = window.innerHeight
 var actual_algorithm
+var actual_filename
 
 function init() {
     actual_algorithm = 'right_heavy'
