@@ -1,4 +1,4 @@
-function random_heavy(tree_node, threshold) {
+function random_heavy(tree_node) {
     if (tree_node === undefined) {
         return;
     }

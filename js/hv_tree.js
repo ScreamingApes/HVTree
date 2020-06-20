@@ -4,6 +4,7 @@ const width = window.innerWidth
 const height = window.innerHeight
 var actual_algorithm
 var actual_filename
+var threshold = 0.5
 
 function init() {
     actual_algorithm = 'right_heavy'
@@ -63,11 +64,17 @@ function change_filename(filename){
 
 function change_algorithm(algorithm){
     actual_algorithm = algorithm
-    draw()
+    redraw()
 }
 
-function redraw(algorithm, ...args) {
-    window[algorithm](tree, args)
+function change_treshold(t){
+    threshold = t
+    actual_algorithm = "random_heavy"
+    redraw()
+}
+
+function redraw() {
+    window[actual_algorithm](tree)
     absolute_points(tree, start_point)
     redraw_tree(map_nodes.values())
 }

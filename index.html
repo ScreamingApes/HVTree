@@ -29,11 +29,7 @@
 <body>
     <nav class="navbar navbar-expand-md navbar-fixed-top navbar-dark bg-dark main-nav">
         <div class="container">
-            <div class="d-flex mx-auto">
-                <form class="range-field">
-                    <input class="border-0" type="range" min="0" max="100" onchange="redraw('random_heavy', this.value / 100)" />
-                </form>
-            </div>
+            <div class="dropdown">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">Select algorithm</button>
@@ -52,9 +48,14 @@
                         <button class="dropdown-item" type="button" onClick="change_filename('tree100')">Tree 100</button>
                     </div>
                 </div>
+            </div>
 
-                
-                
+            <div class="d-flex mx-auto">
+                <form class="range-field">
+                    <input class="border-0" type="range" min="0" max="100" onchange="change_treshold(this.value / 100)" />
+                </form>
+            </div>
+
         </div>
 
     </nav>
