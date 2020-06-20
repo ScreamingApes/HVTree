@@ -3,7 +3,6 @@ var map_nodes = d3.map({})
 const width = window.innerWidth
 const height = window.innerHeight
 
-
 function init() {
     // create svg
     var svg = d3.select("body").append("svg").attr("width", width).attr("height", height).attr("id", "canvas")
@@ -49,8 +48,8 @@ function draw(filename, algorithm) {
         })
 }
 
-function redraw(algorithm) {
-    window[algorithm](tree)
+function redraw(algorithm, ...args) {
+    window[algorithm](tree, args)
     absolute_points(tree, start_point)
     redraw_tree(map_nodes.values())
 }
