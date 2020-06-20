@@ -109,7 +109,7 @@ function alternated_heavy(tree) {
 
                     if (bigger_subtree.vlength >= smaller_subtree.vlength + 1) {
                         tree_node.vlength = bigger_subtree.vlength
-                    }else{
+                    } else {
                         tree_node.vlength = smaller_subtree.vlength + 1
                     }
                 } else {
@@ -123,8 +123,8 @@ function alternated_heavy(tree) {
                     }
                     tree_node.vlength = bigger_subtree.vlength + smaller_subtree.vlength + 1
                 }
-                
-            
+
+
             }
 
         }
@@ -167,25 +167,25 @@ function random_heavy(tree_node, threshold) {
         } else {
             if (random_number > threshold) {
                 tree_node.sx.rpoint = [0, 1]
-                    tree_node.dx.rpoint = [tree_node.sx.hlength + 1, 0]
+                tree_node.dx.rpoint = [tree_node.sx.hlength + 1, 0]
 
-                    tree_node.hlength = tree_node.dx.hlength + tree_node.sx.hlength + 1
+                tree_node.hlength = tree_node.dx.hlength + tree_node.sx.hlength + 1
 
-                    if (tree_node.dx.vlength >= tree_node.sx.vlength + 1) {
-                        tree_node.vlength = tree_node.dx.vlength
-                    }else{
-                        tree_node.vlength = tree_node.sx.vlength + 1
-                    }
+                if (tree_node.dx.vlength >= tree_node.sx.vlength + 1) {
+                    tree_node.vlength = tree_node.dx.vlength
                 } else {
-                    tree_node.dx.rpoint = [0, tree_node.sx.vlength + 1]
-                    tree_node.sx.rpoint = [1, 0]
+                    tree_node.vlength = tree_node.sx.vlength + 1
+                }
+            } else {
+                tree_node.dx.rpoint = [0, tree_node.sx.vlength + 1]
+                tree_node.sx.rpoint = [1, 0]
 
-                    if (tree_node.dx.hlength >= tree_node.sx.hlength + 1) {
-                        tree_node.hlength = tree_node.dx.hlength
-                    } else {
-                        tree_node.hlength = tree_node.sx.hlength + 1
-                    }
-                    tree_node.vlength = tree_node.dx.vlength + tree_node.sx.vlength + 1
+                if (tree_node.dx.hlength >= tree_node.sx.hlength + 1) {
+                    tree_node.hlength = tree_node.dx.hlength
+                } else {
+                    tree_node.hlength = tree_node.sx.hlength + 1
+                }
+                tree_node.vlength = tree_node.dx.vlength + tree_node.sx.vlength + 1
             }
 
         }
