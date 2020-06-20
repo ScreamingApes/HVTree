@@ -27,7 +27,12 @@ function main() {
                     source.dx = target
                 }
             })
-            d3.select("body").append("svg").attr("width", width).attr("height", height)
+            var svg = d3.select("body").append("svg").attr("width", width).attr("height", height).attr("id", "canvas")
+                .call(d3.zoom().on("zoom", function () {
+                svg.attr("transform", d3.event.transform)
+                }))
+                .append("g")
+                .attr("id", "container")
             size_subtrees(tree)
             right_heavy(tree)
             absolute_points(tree, start_point)

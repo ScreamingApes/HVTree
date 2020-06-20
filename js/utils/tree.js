@@ -54,7 +54,7 @@ function get_edges(tree_node) {
 
 function draw_tree(tree_node) {
 
-    var svg = d3.select("svg")
+    var svg = d3.select("svg").select("#container")
     var edges = get_edges(tree)
 
     svg.selectAll("line")
