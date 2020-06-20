@@ -1,7 +1,8 @@
 const unit_length = 50
 const start_point = [1, 1]
 const radius = 15
-const transition_duration = 750
+const duration_update = 750
+const duration_enter = 250
 
 is_leaf = (tree_node) => tree_node.sx === undefined && tree_node.dx === undefined
 sum_point = (point1, point2) => [point1[0] + point2[0], point1[1] + point2[1]]
@@ -62,6 +63,8 @@ function draw_tree(tree_node) {
         .data(edges)
         .enter()
         .append("line")
+        .transition()
+        .duration(duration_enter)
         .attr("x1", edge => edge.start[0] * unit_length)
         .attr("y1", edge => edge.start[1] * unit_length)
         .attr("x2", edge => edge.end[0] * unit_length)
@@ -73,6 +76,8 @@ function draw_tree(tree_node) {
         .data(tree_node)
         .enter()
         .append("circle")
+        .transition()
+        .duration(duration_enter)
         .attr("cx", node => node.apoint[0] * unit_length)
         .attr("cy", node => node.apoint[1] * unit_length)
         .attr("r", radius)
@@ -84,6 +89,8 @@ function draw_tree(tree_node) {
         .data(tree_node)
         .enter()
         .append("text")
+        .transition()
+        .duration(duration_enter)
         .attr("x", node => node.apoint[0] * unit_length)
         .attr("y", node => node.apoint[1] * unit_length + 5)
         .text(node => node.label)
@@ -101,7 +108,7 @@ function redraw_tree(tree_node) {
     svg.selectAll("line")
         .data(edges)
         .transition()
-        .duration(transition_duration)
+        .duration(duration_update)
         .attr("x1", edge => edge.start[0] * unit_length)
         .attr("y1", edge => edge.start[1] * unit_length)
         .attr("x2", edge => edge.end[0] * unit_length)
@@ -112,7 +119,7 @@ function redraw_tree(tree_node) {
     svg.selectAll("circle")
         .data(tree_node)
         .transition()
-        .duration(transition_duration)
+        .duration(duration_update)
         .attr("cx", node => node.apoint[0] * unit_length)
         .attr("cy", node => node.apoint[1] * unit_length)
         .attr("r", radius)
@@ -123,7 +130,7 @@ function redraw_tree(tree_node) {
     svg.selectAll("text")
         .data(tree_node)
         .transition()
-        .duration(transition_duration)
+        .duration(duration_update)
         .attr("x", node => node.apoint[0] * unit_length)
         .attr("y", node => node.apoint[1] * unit_length + 5)
         .text(node => node.label)
