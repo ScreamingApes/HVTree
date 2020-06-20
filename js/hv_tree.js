@@ -2,8 +2,11 @@ var tree = {}
 var map_nodes = d3.map({})
 const width = window.innerWidth
 const height = window.innerHeight
+var actual_algorithm
 
 function init() {
+    actual_algorithm = 'right_heavy'
+    actual_filename = 'data/tree30.json'
     // create svg
     var svg = d3.select("body").append("svg").attr("width", width).attr("height", height).attr("id", "canvas")
         .call(d3.zoom().on("zoom", function () {
@@ -11,12 +14,16 @@ function init() {
         }))
         .append("g")
         .attr("id", "container")
-    draw("data/tree30.json", 'right_heavy')
+    draw(actual_filename)
 }
 
 
-function draw(filename, algorithm) {
-    d3.json(filename)
+function draw() {
+    var svg = d3.select("#canvas")
+    svg.select("#container").remove()
+    svg.append("g").attr("id", "container")
+    
+    d3.json(actual_filename)
         .then(function (data) {
             map_nodes = d3.map({})
             data.nodes.forEach(element => {
@@ -42,10 +49,20 @@ function draw(filename, algorithm) {
             })
 
             size_subtrees(tree)
-            window[algorithm](tree)
+            window[actual_algorithm](tree)
             absolute_points(tree, start_point)
             draw_tree(map_nodes.values())
         })
+}
+
+function change_filename(filename){
+    actual_filename = `data/${filename}.json`
+    draw()
+}
+
+function change_algorithm(algorithm){
+    actual_algorithm = algorithm
+    draw()
 }
 
 function redraw(algorithm, ...args) {

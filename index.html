@@ -28,29 +28,33 @@
 
 <body>
     <nav class="navbar navbar-expand-md navbar-fixed-top navbar-dark bg-dark main-nav">
-
         <div class="container">
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Select algorithm
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <button class="dropdown-item" type="button" onClick="redraw('right_heavy')">Right
-                        Heavy</button>
-                    <button class="dropdown-item" type="button" onClick="redraw('alternated_heavy')">Alternated
-                        Heavy</button>
-                    <button class="dropdown-item" type="button" onClick="redraw('random_heavy', 0.36)">Random
-                        Heavy</button>
-                </div>
-            </div>
-
             <div class="d-flex mx-auto">
                 <form class="range-field">
                     <input class="border-0" type="range" min="0" max="100" onchange="redraw('random_heavy', this.value / 100)" />
                 </form>
             </div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">Select algorithm</button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
+                        <button class="dropdown-item" type="button" onClick="change_algorithm('right_heavy')">Right Heavy</button>
+                        <button class="dropdown-item" type="button" onClick="change_algorithm('alternated_heavy')">Alternate Heavy</button>
+                        <button class="dropdown-item" type="button" onClick="change_algorithm('random_heavy')">Random Heavy</button>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Select Tree</button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
+                        <button class="dropdown-item" type="button" onClick="change_filename('tree1')">Tree 1</button>
+                        <button class="dropdown-item" type="button" onClick="change_filename('tree2')">Tree 2</button>
+                        <button class="dropdown-item" type="button" onClick="change_filename('tree30')">Tree 30</button>
+                        <button class="dropdown-item" type="button" onClick="change_filename('tree100')">Tree 100</button>
+                    </div>
+                </div>
 
+                
+                
         </div>
 
     </nav>
