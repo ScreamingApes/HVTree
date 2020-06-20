@@ -26,6 +26,8 @@
     <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
         integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
         crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -77,6 +79,7 @@
             style="z-index: 2001; position: absolute; bottom: 0px; right: 0px; margin: 20px;">
             <div class="card-body">
                 <input class="border-0" type="range" min="0" max="100" onchange="change_treshold(this.value / 100)" />
+                <button class="btn" onclick="change_algorithm('random_heavy')" ><i class="fa fa-refresh"></i></button>
             </div>
         </div>
     </div>
