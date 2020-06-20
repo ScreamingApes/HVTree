@@ -5,6 +5,7 @@ const height = window.innerHeight
 var actual_algorithm
 var actual_filename
 var threshold = 0.5
+var reader = new FileReader()
 
 function init() {
     actual_algorithm = 'right_heavy'
@@ -16,43 +17,63 @@ function init() {
         }))
         .append("g")
         .attr("id", "container")
-    draw(actual_filename)
+    draw()
 }
 
+function change_json(){
+    var file = document.querySelector('input[type=file]').files[0]
+    reader.addEventListener("load", draw_file, false)
+    if(file){
+        reader.readAsText(file)
+    }
+}
+
+function draw_file(){
+    var svg = d3.select("#canvas")
+    svg.select("#container").selectAll('*').remove()
+    draw_from_data(JSON.parse(reader.result))
+}
 
 function draw() {
     var svg = d3.select("#canvas")
     svg.select("#container").selectAll('*').remove()
+
     d3.json(actual_filename)
         .then(function (data) {
-            map_nodes = d3.map({})
-            data.nodes.forEach(element => {
-                let node = {}
-                node.id = element.id
-                node.label = element.label
-                if (element.id == 0) {
-                    tree = node
-                }
-
-                map_nodes.set(node.id, node)
-            });
-
-            data.edges.forEach(element => {
-                let source = map_nodes.get(element.source)
-                let target = map_nodes.get(element.target)
-
-                if (element.order === 0) {
-                    source.sx = target
-                } else {
-                    source.dx = target
-                }
-            })
-
-            size_subtrees(tree)
-            window[actual_algorithm](tree)
-            absolute_points(tree, start_point)
-            draw_tree(map_nodes.values())
+            draw_from_data(data)
         })
+}
+
+function draw_from_data(data) {
+    var svg = d3.select("#canvas")
+    svg.select("#container").selectAll('*').remove()
+    map_nodes = d3.map({})
+    data.nodes.forEach(element => {
+        let node = {}
+        node.id = element.id
+        node.label = element.label
+        if (element.id == 0) {
+            tree = node
+        }
+
+        map_nodes.set(node.id, node)
+    })
+
+    data.edges.forEach(element => {
+        let source = map_nodes.get(element.source)
+        let target = map_nodes.get(element.target)
+
+        if (element.order === 0) {
+            source.sx = target
+        }
+        else {
+            source.dx = target
+        }
+    })
+    size_subtrees(tree)
+    window[actual_algorithm](tree)
+    absolute_points(tree, start_point)
+    draw_tree(map_nodes.values())
 }
 
 function change_filename(filename){
