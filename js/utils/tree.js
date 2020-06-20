@@ -90,3 +90,37 @@ function draw_tree(tree_node) {
 
 
 }
+
+
+function redraw_tree(tree_node) {
+
+    var svg = d3.select("svg").select("#container")
+    var edges = get_edges(tree)
+
+    svg.selectAll("line")
+        .data(edges)
+        .attr("x1", edge => edge.start[0] * unit_length)
+        .attr("y1", edge => edge.start[1] * unit_length)
+        .attr("x2", edge => edge.end[0] * unit_length)
+        .attr("y2", edge => edge.end[1] * unit_length)
+        .attr("stroke", "red")
+        .attr("stroke-width", 3)
+
+    svg.selectAll("circle")
+        .data(tree_node)
+        .attr("cx", node => node.apoint[0] * unit_length)
+        .attr("cy", node => node.apoint[1] * unit_length)
+        .attr("r", radius)
+        .attr("fill", "white")
+        .attr("stroke", "blue")
+        .attr("stroke-width", 3)
+
+    svg.selectAll("text")
+        .data(tree_node)
+        .attr("x", node => node.apoint[0] * unit_length)
+        .attr("y", node => node.apoint[1] * unit_length + 5)
+        .text(node => node.label)
+        .attr("style", "text-anchor: middle;")
+
+
+}

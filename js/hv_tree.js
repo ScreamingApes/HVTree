@@ -48,3 +48,9 @@ function draw(filename, algorithm) {
             draw_tree(map_nodes.values())
         })
 }
+
+function redraw(algorithm) {
+    window[algorithm](tree)
+    absolute_points(tree, start_point)
+    redraw_tree(map_nodes.values())
+}
