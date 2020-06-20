@@ -3,9 +3,23 @@ var map_nodes = d3.map({})
 const width = window.innerWidth
 const height = window.innerHeight
 
-function main() {
-    d3.json("data/tree30.json")
+
+function init() {
+    // create svg
+    var svg = d3.select("body").append("svg").attr("width", width).attr("height", height).attr("id", "canvas")
+        .call(d3.zoom().on("zoom", function () {
+            svg.attr("transform", d3.event.transform)
+        }))
+        .append("g")
+        .attr("id", "container")
+    draw("data/tree30.json", 'right_heavy')
+}
+
+
+function draw(filename, algorithm) {
+    d3.json(filename)
         .then(function (data) {
+            map_nodes = d3.map({})
             data.nodes.forEach(element => {
                 let node = {}
                 node.id = element.id
@@ -27,14 +41,9 @@ function main() {
                     source.dx = target
                 }
             })
-            var svg = d3.select("body").append("svg").attr("width", width).attr("height", height).attr("id", "canvas")
-                .call(d3.zoom().on("zoom", function () {
-                svg.attr("transform", d3.event.transform)
-                }))
-                .append("g")
-                .attr("id", "container")
+
             size_subtrees(tree)
-            right_heavy(tree)
+            window[algorithm](tree)
             absolute_points(tree, start_point)
             draw_tree(map_nodes.values())
         })
