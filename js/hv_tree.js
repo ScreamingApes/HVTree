@@ -22,8 +22,9 @@ function init() {
 
 function draw() {
     var svg = d3.select("#canvas")
-    svg.select("#container").remove()
-    svg.append("g").attr("id", "container")
+    svg.select("#container").selectAll("line").remove()
+    svg.select("#container").selectAll("circle").remove()
+    svg.select("#container").selectAll("text").remove()
     
     d3.json(actual_filename)
         .then(function (data) {
