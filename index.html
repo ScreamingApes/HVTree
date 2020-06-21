@@ -13,33 +13,80 @@
     <script src="js/algorithms/random_heavy.js"></script>
     <script src="js/algorithms/completely_random.js"></script>
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
-    <link rel="stylesheet"
-        href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
-        integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
-        integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
-        crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
-        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
-        crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
 
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-
         <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <input type="file" class="btn btn-primary" accept=".json" onchange="change_json()">
+                    <div class="dropdown mt-4">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Options
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item" tabindex="-1" href="#">Select Algorithm</a>
+                                <ul class="dropdown-menu">
+                                    <button class="dropdown-item" type="button"
+                                        onClick="change_algorithm('right_heavy')">Right
+                                        Heavy</button>
+                                    <button class="dropdown-item" type="button"
+                                        onClick="change_algorithm('alternated_heavy')">Alternate Heavy</button>
+                                    <button class="dropdown-item" type="button"
+                                        onClick="change_algorithm('completely_random')">Completely Random</button>
+                                    <button class="dropdown-item" type="button"
+                                        onClick="change_algorithm('random_heavy')">Random
+                                        Heavy</button>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item" tabindex="-1" href="#">Select Tree</a>
+                                <ul class="dropdown-menu">
+                                    <button class="dropdown-item" type="button" onClick="change_filename('tree1')">Tree
+                                        1</button>
+                                    <button class="dropdown-item" type="button" onClick="change_filename('tree2')">Tree
+                                        2</button>
+                                    <button class="dropdown-item" type="button" onClick="change_filename('tree30')">Tree
+                                        30</button>
+                                    <button class="dropdown-item" type="button"
+                                        onClick="change_filename('tree100')">Tree
+                                        100</button>
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item" href="#">Upload Tree</a>
+                                        <ul class="dropdown-menu">
+                                            <input type="file" class="dropdown-item upload" accept=".json" onchange="change_json()">
+                                        </ul>
+                                    </li>
+                                    <button class="dropdown-item" href="#">Create Complete Tree</button>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
+        </div>
+        </li>
+        </ul>
         </div>
         <div class="mx-auto order-0">
             <a class="navbar-brand mx-auto" href="#">HV Trees</a>
@@ -47,28 +94,7 @@
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select algorithm</button>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
-                        <button class="dropdown-item" type="button" onClick="change_algorithm('right_heavy')">Right
-                            Heavy</button>
-                        <button class="dropdown-item" type="button"
-                            onClick="change_algorithm('alternated_heavy')">Alternate Heavy</button>
-                        <button class="dropdown-item" type="button" onClick="change_algorithm('completely_random')">Completely Random</button>
-                            <button class="dropdown-item" type="button" onClick="change_algorithm('random_heavy')">Random
-                                Heavy</button>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Select Tree</button>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
-                        <button class="dropdown-item" type="button" onClick="change_filename('tree1')">Tree 1</button>
-                        <button class="dropdown-item" type="button" onClick="change_filename('tree2')">Tree 2</button>
-                        <button class="dropdown-item" type="button" onClick="change_filename('tree30')">Tree 30</button>
-                        <button class="dropdown-item" type="button" onClick="change_filename('tree100')">Tree
-                            100</button>
-                    </div>
+
                 </li>
             </ul>
         </div>
@@ -81,7 +107,8 @@
             style="z-index: 2001; position: absolute; bottom: 0px; right: 0px; margin: 20px;">
             <div class="card-body">
                 <input class="border-0" type="range" min="0" max="100" onchange="change_treshold(this.value / 100)" />
-                <button class="btn" onclick="change_algorithm('completely_random')" ><i class="fa fa-refresh"></i></button>
+                <button class="btn" onclick="change_algorithm('completely_random')"><i
+                        class="fa fa-refresh"></i></button>
             </div>
         </div>
 
@@ -89,7 +116,7 @@
             style="z-index: 2001; position: absolute; bottom: 0px; right: 0px; margin: 20px;">
             <div class="card-body">
                 <input class="border-0" type="range" min="0" max="100" onchange="change_treshold(this.value / 100)" />
-                <button class="btn" onclick="change_algorithm('random_heavy')" ><i class="fa fa-refresh"></i></button>
+                <button class="btn" onclick="change_algorithm('random_heavy')"><i class="fa fa-refresh"></i></button>
             </div>
         </div>
     </div>
