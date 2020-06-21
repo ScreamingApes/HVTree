@@ -113,8 +113,10 @@ function change_depth(d){
     depth = d
 }
 function create_complete_tree(){
-    data = complete_tree(depth)
-    var svg = d3.select("#canvas")
-    svg.select("#container").selectAll('*').remove()
-    draw_from_data(data)
+    if(depth > 0){
+        data = complete_tree(depth)
+        var svg = d3.select("#canvas")
+        svg.select("#container").selectAll('*').remove()
+        draw_from_data(data)
+    }
 }
