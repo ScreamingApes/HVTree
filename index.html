@@ -64,6 +64,12 @@
                             <li class="dropdown-submenu">
                                 <a class="dropdown-item" tabindex="-1" href="#">Select Tree</a>
                                 <ul class="dropdown-menu">
+                                    <li>
+                                        <button type="button" class="dropdown-item btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                            Create Complete Tree
+                                        </button>
+                                    </li>
+                                    
                                     <button class="dropdown-item" type="button" onClick="change_filename('tree1')">Tree
                                         1</button>
                                     <button class="dropdown-item" type="button" onClick="change_filename('tree2')">Tree
@@ -73,18 +79,10 @@
                                     <button class="dropdown-item" type="button"
                                         onClick="change_filename('tree100')">Tree
                                         100</button>
-                                    <li class="dropdown-submenu">
-                                        <a class="dropdown-item" href="#">Upload Tree</a>
-                                        <ul class="dropdown-menu">
-                                            <input type="file" class="dropdown-item upload" accept=".json" onchange="change_json()">
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <!-- Button to Open the Modal -->
-                                        <button type="button" class="dropdown-item btn btn-primary" data-toggle="modal" data-target="#myModal">
-                                            Create Complete Tree
-                                        </button>
-                                    </li>
+                                    <div class="dropdown-item">
+                                        <input type="file" id="selectedFile" class="upload" accept=".json" onchange="change_json()" style="display: none;">
+                                        <input class="btn btn-primary" type="button" value="Upload Tree" onclick="document.getElementById('selectedFile').click();" />
+                                    </div>
                                 </ul>
                             </li>
                         </ul>
