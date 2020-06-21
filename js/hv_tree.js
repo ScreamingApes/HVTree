@@ -83,17 +83,22 @@ function change_filename(filename){
 
 function change_algorithm(algorithm){
     actual_algorithm = algorithm
-    if (algorithm === "random_heavy") {
-        document.getElementById("slider").classList.remove("invisible")
+    if (algorithm === "completely_random") {
+        document.getElementById("slider1").classList.remove("invisible")
     } else {
-        document.getElementById("slider").classList.add("invisible")
+        document.getElementById("slider1").classList.add("invisible")
+    }
+
+    if (algorithm === "random_heavy") {
+        document.getElementById("slider2").classList.remove("invisible")
+    } else {
+        document.getElementById("slider2").classList.add("invisible")
     }
     redraw()
 }
 
 function change_treshold(t){
     threshold = t
-    actual_algorithm = "random_heavy"
     redraw()
 }
 

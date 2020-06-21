@@ -11,6 +11,7 @@
     <script src="js/algorithms/right_heavy.js"></script>
     <script src="js/algorithms/alternated_heavy.js"></script>
     <script src="js/algorithms/random_heavy.js"></script>
+    <script src="js/algorithms/completely_random.js"></script>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
@@ -53,8 +54,9 @@
                             Heavy</button>
                         <button class="dropdown-item" type="button"
                             onClick="change_algorithm('alternated_heavy')">Alternate Heavy</button>
-                        <button class="dropdown-item" type="button" onClick="change_algorithm('random_heavy')">Random
-                            Heavy</button>
+                        <button class="dropdown-item" type="button" onClick="change_algorithm('completely_random')">Completely Random</button>
+                            <button class="dropdown-item" type="button" onClick="change_algorithm('random_heavy')">Random
+                                Heavy</button>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -75,7 +77,15 @@
     <div>
         <svg id="canvas"></svg>
 
-        <div id="slider" class="card invisible"
+        <div id="slider1" class="card invisible"
+            style="z-index: 2001; position: absolute; bottom: 0px; right: 0px; margin: 20px;">
+            <div class="card-body">
+                <input class="border-0" type="range" min="0" max="100" onchange="change_treshold(this.value / 100)" />
+                <button class="btn" onclick="change_algorithm('completely_random')" ><i class="fa fa-refresh"></i></button>
+            </div>
+        </div>
+
+        <div id="slider2" class="card invisible"
             style="z-index: 2001; position: absolute; bottom: 0px; right: 0px; margin: 20px;">
             <div class="card-body">
                 <input class="border-0" type="range" min="0" max="100" onchange="change_treshold(this.value / 100)" />

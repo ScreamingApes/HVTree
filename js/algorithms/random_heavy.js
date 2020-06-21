@@ -30,27 +30,36 @@ function random_heavy(tree_node) {
             }
 
         } else {
+            // trovo il sottoalbero più grande e quello più piccolo
+            if (tree_node.size_dx > tree_node.size_sx) {
+                bigger_subtree = tree_node.dx
+                smaller_subtree = tree_node.sx
+            } else {
+                bigger_subtree = tree_node.sx
+                smaller_subtree = tree_node.dx
+            }
+
             if (random_number > threshold) {
-                tree_node.sx.rpoint = [0, 1]
-                tree_node.dx.rpoint = [tree_node.sx.hlength + 1, 0]
+                smaller_subtree.rpoint = [0, 1]
+                bigger_subtree.rpoint = [smaller_subtree.hlength + 1, 0]
 
-                tree_node.hlength = tree_node.dx.hlength + tree_node.sx.hlength + 1
+                tree_node.hlength = bigger_subtree.hlength + smaller_subtree.hlength + 1
 
-                if (tree_node.dx.vlength >= tree_node.sx.vlength + 1) {
-                    tree_node.vlength = tree_node.dx.vlength
+                if (bigger_subtree.vlength >= smaller_subtree.vlength + 1) {
+                    tree_node.vlength = bigger_subtree.vlength
                 } else {
-                    tree_node.vlength = tree_node.sx.vlength + 1
+                    tree_node.vlength = smaller_subtree.vlength + 1
                 }
             } else {
-                tree_node.dx.rpoint = [0, tree_node.sx.vlength + 1]
-                tree_node.sx.rpoint = [1, 0]
+                bigger_subtree.rpoint = [0, smaller_subtree.vlength + 1]
+                smaller_subtree.rpoint = [1, 0]
 
-                if (tree_node.dx.hlength >= tree_node.sx.hlength + 1) {
-                    tree_node.hlength = tree_node.dx.hlength
+                if (bigger_subtree.hlength >= smaller_subtree.hlength + 1) {
+                    tree_node.hlength = bigger_subtree.hlength
                 } else {
-                    tree_node.hlength = tree_node.sx.hlength + 1
+                    tree_node.hlength = smaller_subtree.hlength + 1
                 }
-                tree_node.vlength = tree_node.dx.vlength + tree_node.sx.vlength + 1
+                tree_node.vlength = bigger_subtree.vlength + smaller_subtree.vlength + 1
             }
 
         }
