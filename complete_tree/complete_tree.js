@@ -24,5 +24,3 @@ function complete_tree(height) {
     ct(height)
     return { nodes: nodes, edges: edges }
 }
-
-JSON.stringify(complete_tree(5))

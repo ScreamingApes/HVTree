@@ -6,6 +6,7 @@ var actual_algorithm
 var actual_filename
 var threshold = 0.5
 var reader = new FileReader()
+var depth = 0
 
 function init() {
     actual_algorithm = 'right_heavy'
@@ -106,4 +107,14 @@ function redraw() {
     window[actual_algorithm](tree)
     absolute_points(tree, start_point)
     redraw_tree(map_nodes.values())
+}
+
+function change_depth(d){
+    depth = d
+}
+function create_complete_tree(){
+    data = complete_tree(depth)
+    var svg = d3.select("#canvas")
+    svg.select("#container").selectAll('*').remove()
+    draw_from_data(data)
 }
