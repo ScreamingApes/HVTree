@@ -1,4 +1,4 @@
-function ratio_heuristic(tree_node) {
+function area_heuristic(tree_node) {
 
     if (tree_node === undefined) {
         return;
@@ -11,10 +11,10 @@ function ratio_heuristic(tree_node) {
     } else {
 
         //disegno il primo sottoalbero
-        ratio_heuristic(tree_node.sx)
+        area_heuristic(tree_node.sx)
 
         //disegno il secondo sottoalbero
-        ratio_heuristic(tree_node.dx)
+        area_heuristic(tree_node.dx)
 
         if (one_child(tree_node)) {
             child = tree_node.sx === undefined ? tree_node.dx : tree_node.sx
@@ -27,7 +27,7 @@ function ratio_heuristic(tree_node) {
             var h2 = child.hlength
             var v2 = child.vlength + 1
 
-            if (h1 / v1 <= h2 / v2) {
+            if (h1 * v1 <= h2 * v2) {
                 // scelgo primo caso: child a destra a (1, 0)
                 child.rpoint = [1, 0]
                 tree_node.hlength = h1
@@ -55,11 +55,7 @@ function ratio_heuristic(tree_node) {
                 h1 = h_dx + 1
             }
 
-            if (v_dx >= v_sx + 1) {
-                v1 = v_dx
-            } else {
-                v1 = v_sx + 1
-            }
+            v1 = v_dx + v_sx + 1
 
             // secondo caso: sx a destra a (1, 0) e dx in basso a (0, v_sx+1)
 
@@ -69,11 +65,7 @@ function ratio_heuristic(tree_node) {
                 h2 = h_sx + 1
             }
 
-            if (v_sx >= v_dx + 1) {
-                v2 = v_sx
-            } else {
-                v2 = v_dx + 1
-            }
+            v2 = v_dx + v_sx + 1
 
             // terzo caso: dx a destra a (h_sx+1, 0) e sx in basso a (0, 1)
             h3 = h_sx + h_dx + 1
@@ -93,9 +85,9 @@ function ratio_heuristic(tree_node) {
                 v4 = v_dx + 1
             }
 
-            var ratio = [h1 / v1, h2 / v2, h3 / v3, h4 / v4]
+            var area = [h1 * v1, h2 * v2, h3 * v3, h4 * v4]
 
-            switch (d3.minIndex(ratio)) {
+            switch (d3.minIndex(area)) {
                 case 0:
                     // primo caso: dx a destra a (1, 0) e sx in basso a (0, v_dx+1)
                     tree_node.dx.rpoint = [1, 0]
@@ -122,8 +114,8 @@ function ratio_heuristic(tree_node) {
                     break;
                 case 3:
                     // quarto caso: sx a destra a (h_dx+1, 0) e dx in basso a (0, 1)
-                    tree_node.dx.rpoint = [h_dx + 1, 0]
-                    tree_node.sx.rpoint = [0, 1]
+                    tree_node.dx.rpoint = [0, 1]
+                    tree_node.sx.rpoint = [h_dx + 1, 0]
 
                     tree_node.hlength = h4
                     tree_node.vlength = v4
