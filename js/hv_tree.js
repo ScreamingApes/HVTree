@@ -9,7 +9,7 @@ var reader = new FileReader()
 var depth = 0
 
 function init() {
-    actual_algorithm = 'ratio_heuristic'
+    actual_algorithm = 'right_heavy'
     actual_filename = 'data/tree30.json'
     // create svg
     var svg = d3.select("#canvas").attr("width", width).attr("height", height)
