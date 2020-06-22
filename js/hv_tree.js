@@ -19,17 +19,24 @@ function init() {
         .append("g")
         .attr("id", "container")
     draw()
+
+    const $valueSpan = $('.valueSpan2');
+    const $value = $('#customRange11');
+    $valueSpan.html($value.val());
+    $value.on('input change', () => {
+        $valueSpan.html($value.val());
+    });
 }
 
-function change_json(){
+function change_json() {
     var file = document.querySelector('input[type=file]').files[0]
     reader.addEventListener("load", draw_file, false)
-    if(file){
+    if (file) {
         reader.readAsText(file)
     }
 }
 
-function draw_file(){
+function draw_file() {
     var svg = d3.select("#canvas")
     svg.select("#container").selectAll('*').remove()
     draw_from_data(JSON.parse(reader.result))
@@ -77,28 +84,23 @@ function draw_from_data(data) {
     draw_tree(map_nodes.values())
 }
 
-function change_filename(filename){
+function change_filename(filename) {
     actual_filename = `data/${filename}.json`
     draw()
 }
 
-function change_algorithm(algorithm){
+function change_algorithm(algorithm) {
     actual_algorithm = algorithm
-    if (algorithm === "completely_random") {
-        document.getElementById("slider1").classList.remove("invisible")
+    if (["completely_random", "random_heavy"].indexOf(algorithm) != -1) {
+        document.getElementById("slider").classList.remove("invisible")
     } else {
-        document.getElementById("slider1").classList.add("invisible")
+        document.getElementById("slider").classList.add("invisible")
     }
 
-    if (algorithm === "random_heavy") {
-        document.getElementById("slider2").classList.remove("invisible")
-    } else {
-        document.getElementById("slider2").classList.add("invisible")
-    }
     redraw()
 }
 
-function change_treshold(t){
+function change_treshold(t) {
     threshold = t
     redraw()
 }
@@ -109,11 +111,11 @@ function redraw() {
     redraw_tree(map_nodes.values())
 }
 
-function change_depth(d){
+function change_depth(d) {
     depth = d
 }
-function create_complete_tree(){
-    if(depth > 0){
+function create_complete_tree() {
+    if (depth > 0) {
         data = complete_tree(depth)
         var svg = d3.select("#canvas")
         svg.select("#container").selectAll('*').remove()
