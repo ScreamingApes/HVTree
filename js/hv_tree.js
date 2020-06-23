@@ -127,7 +127,6 @@ function redraw() {
 }
 
 function change_depth(d) {
-    tree_name = "complete tree with depth " + d 
     set_labels()
     depth = d
 }
@@ -137,17 +136,23 @@ function create_complete_tree() {
         var svg = d3.select("#canvas")
         svg.select("#container").selectAll('*').remove()
         draw_from_data(data)
-
+        prev_tree_name = tree_name
+        tree_name = "complete tree with depth " + depth
         set_labels()
     }
+}
+
+function restore_tree_name(){
+    tree_name = prev_tree_name
+    set_labels()
 }
 
 function set_labels(){
     var a = capitalizeFirstLetter(actual_algorithm)
     a = a.slice(0, a.indexOf("_")) + " " + a.charAt(a.indexOf("_") + 1).toUpperCase() + a.slice(a.indexOf("_") + 2)
 
-    d3.select("#algorithm_name").text(a+ ": ")
-    d3.select("#tree_name").text(capitalizeFirstLetter(tree_name))
+    d3.select("#tree_name").text(capitalizeFirstLetter(tree_name + ":"))
+    d3.select("#algorithm_name").text(a)
 }
 
 function capitalizeFirstLetter([first, ...rest]) {
