@@ -44,14 +44,27 @@
         <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <div class="dropdown mt-4">
-                        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Options
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownMenuLink">
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Select Algorithm</a>
-                                <ul class="dropdown-menu">
+                    <div class="container">
+                        <div class="row">
+                            <span id="algorithm_name" class="text-danger">ciao</span>:
+                            <span id="tree_name" class="text-light">ciao</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto" href="#">HV Trees</a>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <div class="container">
+                        <div class="row">
+                            <span class="dropdown align-middle">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Select Algorithm</a>
+                                <ul class="dropdown-menu dropdown-menu-right">
                                     <button class="dropdown-item" type="button"
                                         onClick="change_algorithm('right_heavy')">Right
                                         Heavy</button>
@@ -67,45 +80,39 @@
                                     <button class="dropdown-item" type="button"
                                         onClick="change_algorithm('ratio_heuristic')">Ratio Heuristic</button>
                                 </ul>
-                            </li>
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Select Tree</a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <button type="button" class="dropdown-item btn btn-primary" data-toggle="modal"
-                                            data-target="#myModal">
-                                            Create Complete Tree
-                                        </button>
-                                    </li>
-
-                                    <button class="dropdown-item" type="button" onClick="change_filename('tree1')">Tree
-                                        1</button>
-                                    <button class="dropdown-item" type="button" onClick="change_filename('tree2')">Tree
-                                        2</button>
-                                    <button class="dropdown-item" type="button" onClick="change_filename('tree30')">Tree
-                                        30</button>
-                                    <button class="dropdown-item" type="button"
-                                        onClick="change_filename('tree100')">Tree
-                                        100</button>
-                                    <div class="dropdown-item">
-                                        <input type="file" id="selectedFile" class="upload" accept=".json"
-                                            onchange="change_json()" style="display: none;">
-                                        <input class="btn btn-primary" type="button" value="Upload Tree"
-                                            onclick="document.getElementById('selectedFile').click();" />
-                                    </div>
+                            </span>
+                            <span class="dropdown align-middle">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Select Tree</a>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li>
+                                            <button type="button" class="dropdown-item btn btn-primary" data-toggle="modal"
+                                                data-target="#myModal">
+                                                Create Complete Tree
+                                            </button>
+                                        </li>
+        
+                                        <button class="dropdown-item" type="button" onClick="change_filename('tree1')">Tree
+                                            1</button>
+                                        <button class="dropdown-item" type="button" onClick="change_filename('tree2')">Tree
+                                            2</button>
+                                        <button class="dropdown-item" type="button" onClick="change_filename('tree30')">Tree
+                                            30</button>
+                                        <button class="dropdown-item" type="button"
+                                            onClick="change_filename('tree100')">Tree
+                                            100</button>
+                                        <div class="dropdown-item">
+                                            <input type="file" id="selectedFile" class="upload" accept=".json"
+                                                onchange="change_json()" style="display: none;">
+                                            <input class="btn btn-primary" type="button" value="Upload Tree"
+                                                onclick="document.getElementById('selectedFile').click();" />
+                                        </div>
+                                    </ul>
+                                </li>
                                 </ul>
-                            </li>
-                        </ul>
+                            </span>
+                        </div>
                     </div>
-                </li>
-            </ul>
-        </div>
-        <div class="mx-auto order-0">
-            <a class="navbar-brand mx-auto" href="#">HV Trees</a>
-        </div>
-        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-
                 </li>
             </ul>
         </div>

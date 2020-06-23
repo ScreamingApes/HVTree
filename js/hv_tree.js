@@ -12,6 +12,10 @@ var depth = 0
 function init() {
     actual_algorithm = 'right_heavy'
     actual_filename = 'data/tree30.json'
+    tree_name = "tree30"
+
+    set_labels()
+
     // create svg
     var svg = d3.select("#canvas").attr("width", width).attr("height", height)
         .call(d3.zoom().on("zoom", function () {
@@ -34,6 +38,8 @@ function change_json() {
     reader.addEventListener("load", draw_file, false)
     if (file) {
         reader.readAsText(file)
+        tree_name = file.replace(".json", "")
+        set_labels()
     }
 }
 
@@ -90,6 +96,9 @@ function draw_from_data(data) {
 
 function change_filename(filename) {
     actual_filename = `data/${filename}.json`
+    tree_name = filename
+
+    set_labels()
     draw()
 }
 
@@ -100,7 +109,9 @@ function change_algorithm(algorithm) {
     } else {
         document.getElementById("slider").classList.add("invisible")
     }
-
+    
+    set_labels()
+    
     redraw()
 }
 
@@ -116,6 +127,8 @@ function redraw() {
 }
 
 function change_depth(d) {
+    tree_name = "complete tree with depth " + d 
+    set_labels()
     depth = d
 }
 function create_complete_tree() {
@@ -124,5 +137,19 @@ function create_complete_tree() {
         var svg = d3.select("#canvas")
         svg.select("#container").selectAll('*').remove()
         draw_from_data(data)
+
+        set_labels()
     }
 }
+
+function set_labels(){
+    var a = capitalizeFirstLetter(actual_algorithm)
+    a = a.slice(0, a.indexOf("_")) + " " + a.charAt(a.indexOf("_") + 1).toUpperCase() + a.slice(a.indexOf("_") + 2)
+
+    d3.select("#algorithm_name").text(a+ ": ")
+    d3.select("#tree_name").text(capitalizeFirstLetter(tree_name))
+}
+
+function capitalizeFirstLetter([first, ...rest]) {
+    return first.toUpperCase() + rest.join("")
+  }
