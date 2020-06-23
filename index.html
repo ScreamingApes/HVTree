@@ -114,19 +114,14 @@
     <div>
         <svg id="canvas"></svg>
 
-        
-
-        <div id="slider" class="card invisible"
+        <div id="slider" class="card"
             style="z-index: 2001; position: absolute; bottom: 0px; right: 0px; margin: 20px;">
-            <div class="d-flex justify-content-center">
+            <div class="m-2 d-flex justify-content-center" style="align-items: center;">
                 <button class="btn" onclick="change_algorithm(actual_algorithm)"><i class="fa fa-refresh"></i></button>
-                <!-- <div class="w-75"> -->
-                  <input type="range" class="custom-range" id="customRange11" min="0" max="100" onchange="change_treshold(this.value / 100)">
-                <!-- </div> -->
+                <input type="range" class="custom-range" id="customRange11" min="0" max="100" onchange="change_treshold(this.value / 100)">
                 <span class="font-weight-bold text-primary ml-3 valueSpan2" style="width: 2em;"></span>
               </div>
         </div>
-
     </div>
 
     <!-- The Modal -->
