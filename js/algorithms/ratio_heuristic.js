@@ -87,7 +87,7 @@ function ratio_heuristic(tree_node) {
 
             var area = [h1 / v1, h2 / v2, h3 / v3, h4 / v4]
 
-            switch (d3.maxIndex(area)) {
+            switch (nearest_to_one(area)) {
                 case 0:
                     // primo caso: dx a destra a (1, 0) e sx in basso a (0, v_dx+1)
                     tree_node.dx.rpoint = [1, 0]
@@ -127,3 +127,7 @@ function ratio_heuristic(tree_node) {
     }
 
 } 
+
+function nearest_to_one(array) {
+    return d3.minIndex(array.map(elem => Math.abs(1 - elem)))
+}
