@@ -57,6 +57,7 @@ function draw_from_data(data) {
     var svg = d3.select("#canvas")
     svg.select("#container").selectAll('*').remove()
     map_nodes = d3.map({})
+    tree_edges.length = 0
     data.nodes.forEach(element => {
         let node = {}
         node.id = element.id

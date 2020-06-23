@@ -33,31 +33,20 @@ function absolute_points(tree_node, start_point) {
 
 }
 
-function get_edges(tree_edges) {
-    var edges_apoint = []
-
-    tree_edges.forEach(element => {
-        edges_apoint.push({ start: element.source.apoint, end: element.target.apoint })
-    });
-    
-    return edges_apoint
-}
-
 function draw_tree(tree_node) {
 
     var svg = d3.select("svg").select("#container")
-    var edges = get_edges(tree_edges)
 
     svg.selectAll("line")
-        .data(edges)
+        .data(tree_edges)
         .enter()
         .append("line")
         .transition()
         .duration(duration_enter)
-        .attr("x1", edge => edge.start[0] * unit_length)
-        .attr("y1", edge => edge.start[1] * unit_length)
-        .attr("x2", edge => edge.end[0] * unit_length)
-        .attr("y2", edge => edge.end[1] * unit_length)
+        .attr("x1", edge => edge.source.apoint[0] * unit_length)
+        .attr("y1", edge => edge.source.apoint[1] * unit_length)
+        .attr("x2", edge => edge.target.apoint[0] * unit_length)
+        .attr("y2", edge => edge.target.apoint[1] * unit_length)
         .attr("stroke", "red")
         .attr("stroke-width", 3)
 
@@ -92,16 +81,16 @@ function draw_tree(tree_node) {
 function redraw_tree(tree_node) {
 
     var svg = d3.select("svg").select("#container")
-    var edges = get_edges(tree)
+    //var edges = get_edges(tree)
 
     svg.selectAll("line")
-        .data(edges)
+        .data(tree_edges)
         .transition()
         .duration(duration_update)
-        .attr("x1", edge => edge.start[0] * unit_length)
-        .attr("y1", edge => edge.start[1] * unit_length)
-        .attr("x2", edge => edge.end[0] * unit_length)
-        .attr("y2", edge => edge.end[1] * unit_length)
+        .attr("x1", edge => edge.source.apoint[0] * unit_length)
+        .attr("y1", edge => edge.source.apoint[1] * unit_length)
+        .attr("x2", edge => edge.target.apoint[0] * unit_length)
+        .attr("y2", edge => edge.target.apoint[1] * unit_length)
         .attr("stroke", "red")
         .attr("stroke-width", 3)
 
