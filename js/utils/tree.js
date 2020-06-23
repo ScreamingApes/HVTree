@@ -62,18 +62,16 @@ function draw_tree(tree_node) {
         .attr("fill", "white")
         .attr("stroke", "blue")
         .attr("stroke-width", 3)
-
-    svg.selectAll("text")
-        .data(tree_node)
-        .enter()
-        .append("text")
-        .transition()
-        .duration(duration_enter)
-        .attr("x", node => node.apoint[0] * unit_length)
-        .attr("y", node => node.apoint[1] * unit_length + 5)
-        .text(node => node.label)
-        .attr("style", "text-anchor: middle;")
-
+        .on("end", function () {
+            svg.selectAll("text")
+                .data(tree_node)
+                .enter()
+                .append("text")
+                .attr("x", node => node.apoint[0] * unit_length)
+                .attr("y", node => node.apoint[1] * unit_length + 5)
+                .text(node => node.label)
+                .attr("style", "text-anchor: middle;")
+        })
 
 }
 
