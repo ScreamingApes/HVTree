@@ -33,25 +33,14 @@ function absolute_points(tree_node, start_point) {
 
 }
 
-function get_edges(tree_node) {
-    var edges = []
+function get_edges(edges) {
+    var edges_apoint = []
 
-    function g_e(tree_node) {
-        if (tree_node === undefined) {
-            return;
-        }
-        if (!is_leaf(tree_node)) {
-            if (tree_node.sx !== undefined)
-                edges.push({ start: tree_node.apoint, end: tree_node.sx.apoint })
-            if (tree_node.dx !== undefined)
-                edges.push({ start: tree_node.apoint, end: tree_node.dx.apoint })
-            g_e(tree_node.sx)
-            g_e(tree_node.dx)
-        }
-    }
-
-    g_e(tree_node)
-    return edges
+    edges.forEach(element => {
+        edges_apoint.push({ start: element.source.apoint, end: element.target.apoint })
+    });
+    
+    return edges_apoint
 }
 
 function draw_tree(tree_node) {
