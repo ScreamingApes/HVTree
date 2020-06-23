@@ -1,6 +1,6 @@
 var tree = {}
 var map_nodes = d3.map({})
-var edges = []
+var tree_edges = []
 const width = window.innerWidth
 const height = window.innerHeight
 var actual_algorithm
@@ -72,7 +72,7 @@ function draw_from_data(data) {
         let source = map_nodes.get(element.source)
         let target = map_nodes.get(element.target)
 
-        edges.push({ start: source, end: target })
+        tree_edges.push({ source: source, target: target })
 
         if (element.order === 0) {
             source.sx = target

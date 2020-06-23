@@ -33,10 +33,10 @@ function absolute_points(tree_node, start_point) {
 
 }
 
-function get_edges(edges) {
+function get_edges(tree_edges) {
     var edges_apoint = []
 
-    edges.forEach(element => {
+    tree_edges.forEach(element => {
         edges_apoint.push({ start: element.source.apoint, end: element.target.apoint })
     });
     
@@ -46,7 +46,7 @@ function get_edges(edges) {
 function draw_tree(tree_node) {
 
     var svg = d3.select("svg").select("#container")
-    var edges = get_edges(tree)
+    var edges = get_edges(tree_edges)
 
     svg.selectAll("line")
         .data(edges)
