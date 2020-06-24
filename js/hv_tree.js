@@ -1,15 +1,19 @@
 var tree = {}
 var map_nodes = d3.map({})
 var tree_edges = []
-const width = window.innerWidth
-const height = window.innerHeight
 var actual_algorithm
 var actual_filename
 var threshold = 0.5
 var reader = new FileReader()
 var depth = 0
 
+function get_inner_size() {
+    return [window.innerWidth, window.innerHeight - document.getElementsByClassName("navbar")[0].clientHeight]
+}
+
 function init() {
+    const [width, height] = get_inner_size()
+
     actual_algorithm = 'right_heavy'
     actual_filename = 'data/tree30.json'
     tree_name = "tree30"
@@ -31,6 +35,11 @@ function init() {
     $value.on('input change', () => {
         $valueSpan.html($value.val());
     });
+
+    window.onresize = function () {
+        const [width, height] = get_inner_size()
+        var svg = d3.select("#canvas").attr("width", width).attr("height", height)
+    }
 }
 
 function change_json() {
@@ -109,9 +118,9 @@ function change_algorithm(algorithm) {
     } else {
         document.getElementById("slider").classList.add("invisible")
     }
-    
+
     set_labels()
-    
+
     redraw()
 }
 
@@ -142,12 +151,12 @@ function create_complete_tree() {
     }
 }
 
-function restore_tree_name(){
+function restore_tree_name() {
     tree_name = prev_tree_name
     set_labels()
 }
 
-function set_labels(){
+function set_labels() {
     var a = capitalizeFirstLetter(actual_algorithm)
     a = a.slice(0, a.indexOf("_")) + " " + a.charAt(a.indexOf("_") + 1).toUpperCase() + a.slice(a.indexOf("_") + 2)
 
@@ -157,4 +166,4 @@ function set_labels(){
 
 function capitalizeFirstLetter([first, ...rest]) {
     return first.toUpperCase() + rest.join("")
-  }
+}

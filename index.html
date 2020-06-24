@@ -179,30 +179,32 @@
             </div>
         </div>
     </div>
-    <script>init()</script>
     <script>
-        let zoom_duration = 250
+        $(document).ready(function () {
+            init()
+            let zoom_duration = 250
 
-        let zoom = d3.zoom().on("zoom", zoomed);
+            let zoom = d3.zoom().on("zoom", zoomed);
 
-        let svg = d3.select("svg")
-            .call(zoom)
-            .on("dblclick.zoom", null);
-        let g = svg.select("g");        
+            let svg = d3.select("svg")
+                .call(zoom)
+                .on("dblclick.zoom", null);
+            let g = svg.select("g");
 
-        d3.select("#zoom_in").on("click", function () {
-            zoom.scaleBy(svg.transition().duration(zoom_duration), 1.2);
+            d3.select("#zoom_in").on("click", function () {
+                zoom.scaleBy(svg.transition().duration(zoom_duration), 1.2);
+            });
+            d3.select("#zoom_out").on("click", function () {
+                zoom.scaleBy(svg.transition().duration(zoom_duration), 0.8);
+            });
+            d3.select("#zoom_reset").on("click", function () {
+                svg.transition().duration(zoom_duration).call(zoom.transform, d3.zoomIdentity);
+            });
+
+            function zoomed() {
+                g.attr("transform", d3.event.transform);
+            }
         });
-        d3.select("#zoom_out").on("click", function () {
-            zoom.scaleBy(svg.transition().duration(zoom_duration), 0.8);
-        });
-        d3.select("#zoom_reset").on("click", function () {
-            svg.transition().duration(zoom_duration).call(zoom.transform, d3.zoomIdentity);
-        });
-
-        function zoomed() {
-            g.attr("transform", d3.event.transform);
-        }
     </script>
 </body>
 
