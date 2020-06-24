@@ -63,7 +63,8 @@
                         <div class="row">
                             <span class="dropdown align-middle">
                                 <a class="nav-link dropdown-toggle pointer" id="navbarDropdownMenuLink"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Select Algorithm</a>
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Select
+                                    Algorithm</a>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <button class="dropdown-item" type="button"
                                         onClick="change_algorithm('right_heavy')">Right
@@ -83,38 +84,38 @@
                             </span>
                             <span class="dropdown align-middle">
                                 <a class="nav-link dropdown-toggle pointer" id="navbarDropdownMenuLink"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Select Tree</a>
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li>
-                                            <button type="button" class="dropdown-item btn btn-primary" data-toggle="modal"
-                                                data-target="#myModal">
-                                                Create Complete Tree
-                                            </button>
-                                        </li>
-        
-                                        <button class="dropdown-item" type="button" onClick="change_filename('tree1')">Tree
-                                            1</button>
-                                        <button class="dropdown-item" type="button" onClick="change_filename('tree2')">Tree
-                                            2</button>
-                                        <button class="dropdown-item" type="button" onClick="change_filename('tree30')">Tree
-                                            30</button>
-                                        <button class="dropdown-item" type="button"
-                                            onClick="change_filename('tree100')">Tree
-                                            100</button>
-                                        <div class="dropdown-item">
-                                            <input type="file" id="selectedFile" class="upload" accept=".json"
-                                                onchange="change_json()" style="display: none;">
-                                            <input class="btn btn-primary" type="button" value="Upload Tree"
-                                                onclick="document.getElementById('selectedFile').click();" />
-                                        </div>
-                                    </ul>
-                                </li>
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Select Tree</a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li>
+                                        <button type="button" class="dropdown-item btn btn-primary" data-toggle="modal"
+                                            data-target="#myModal">
+                                            Create Complete Tree
+                                        </button>
+                                    </li>
+
+                                    <button class="dropdown-item" type="button" onClick="change_filename('tree1')">Tree
+                                        1</button>
+                                    <button class="dropdown-item" type="button" onClick="change_filename('tree2')">Tree
+                                        2</button>
+                                    <button class="dropdown-item" type="button" onClick="change_filename('tree30')">Tree
+                                        30</button>
+                                    <button class="dropdown-item" type="button"
+                                        onClick="change_filename('tree100')">Tree
+                                        100</button>
+                                    <div class="dropdown-item">
+                                        <input type="file" id="selectedFile" class="upload" accept=".json"
+                                            onchange="change_json()" style="display: none;">
+                                        <input class="btn btn-primary" type="button" value="Upload Tree"
+                                            onclick="document.getElementById('selectedFile').click();" />
+                                    </div>
                                 </ul>
-                            </span>
-                        </div>
-                    </div>
                 </li>
             </ul>
+            </span>
+        </div>
+        </div>
+        </li>
+        </ul>
         </div>
     </nav>
 
@@ -125,9 +126,18 @@
             style="z-index: 2001; position: absolute; bottom: 0px; right: 0px; margin: 20px;">
             <div class="m-2 d-flex justify-content-center" style="align-items: center;">
                 <button class="btn" onclick="change_algorithm(actual_algorithm)"><i class="fa fa-refresh"></i></button>
-                <input type="range" class="custom-range" id="customRange11" min="0" max="100" onchange="change_treshold(this.value / 100)">
+                <input type="range" class="custom-range" id="customRange11" min="0" max="100"
+                    onchange="change_treshold(this.value / 100)">
                 <span class="font-weight-bold text-primary ml-3 valueSpan2" style="width: 2em;"></span>
-              </div>
+            </div>
+        </div>
+
+        <div class="card" style="z-index: 2001; position: absolute; bottom: 0px; left: 0px; margin: 20px;">
+            <div class="m-2 d-flex justify-content-center" style="align-items: center;">
+                <button class="btn" id="zoom_in"><i class="fa fa-search-plus"></i></button>
+                <button class="btn" id="zoom_out"><i class="fa fa-search-minus"></i></button>
+                <button class="btn" id="zoom_reset"><i class="fa fa-undo"></i></button>
+            </div>
         </div>
     </div>
 
@@ -162,13 +172,38 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal"
                         onclick="create_complete_tree()">Submit</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="restore_tree_name()">Cancel</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"
+                        onclick="restore_tree_name()">Cancel</button>
                 </div>
 
             </div>
         </div>
     </div>
     <script>init()</script>
+    <script>
+        let zoom_duration = 250
+
+        let zoom = d3.zoom().on("zoom", zoomed);
+
+        let svg = d3.select("svg")
+            .call(zoom)
+            .on("dblclick.zoom", null);
+        let g = svg.select("g");        
+
+        d3.select("#zoom_in").on("click", function () {
+            zoom.scaleBy(svg.transition().duration(zoom_duration), 1.2);
+        });
+        d3.select("#zoom_out").on("click", function () {
+            zoom.scaleBy(svg.transition().duration(zoom_duration), 0.8);
+        });
+        d3.select("#zoom_reset").on("click", function () {
+            svg.transition().duration(zoom_duration).call(zoom.transform, d3.zoomIdentity);
+        });
+
+        function zoomed() {
+            g.attr("transform", d3.event.transform);
+        }
+    </script>
 </body>
 
 </html>
