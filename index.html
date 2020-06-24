@@ -62,7 +62,7 @@
                     <div class="container">
                         <div class="row">
                             <span class="dropdown align-middle">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink"
+                                <a class="nav-link dropdown-toggle pointer" id="navbarDropdownMenuLink"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Select Algorithm</a>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <button class="dropdown-item" type="button"
@@ -82,7 +82,7 @@
                                 </ul>
                             </span>
                             <span class="dropdown align-middle">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink"
+                                <a class="nav-link dropdown-toggle pointer" id="navbarDropdownMenuLink"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Select Tree</a>
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li>
@@ -169,19 +169,6 @@
         </div>
     </div>
     <script>init()</script>
-    <script>
-        $('.dropdown-menu a.dropdown-toggle').on('click', function (e) {
-            if (!$(this).next().hasClass('show')) {
-                $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
-            }
-            var $subMenu = $(this).next(".dropdown-menu");
-            $subMenu.toggleClass('show');
-            $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
-                $('.dropdown-submenu .show').removeClass("show");
-            });
-            return false;
-        });
-    </script>
 </body>
 
 </html>
