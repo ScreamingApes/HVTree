@@ -1,6 +1,8 @@
 var tree = {}
 var map_nodes = d3.map({})
 var tree_edges = []
+const width = window.innerWidth
+const height = window.innerHeight
 var actual_algorithm
 var actual_filename
 var threshold = 0.5
@@ -12,11 +14,9 @@ function get_inner_size() {
 }
 
 function init() {
-    const [width, height] = get_inner_size()
-
-    actual_algorithm = 'right_heavy'
-    actual_filename = 'data/tree30.json'
-    tree_name = "tree30"
+    actual_algorithm = 'labeled_ratio_heuristic'
+    actual_filename = 'data/tree30L.json'
+    tree_name = "tree30L"
 
     set_labels()
 
@@ -27,7 +27,7 @@ function init() {
         }))
         .append("g")
         .attr("id", "container")
-    draw()
+    labeled_draw()
 
     const $valueSpan = $('.valueSpan2');
     const $value = $('#customRange11');
@@ -77,6 +77,8 @@ function draw_from_data(data) {
         let node = {}
         node.id = element.id
         node.label = element.label
+        node.label_size = element.label_size
+
         if (element.id == 0) {
             tree = node
         }

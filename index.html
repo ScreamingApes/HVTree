@@ -9,12 +9,14 @@
     <script src="https://d3js.org/d3-array.v2.min.js"></script>
     <script src="js/hv_tree.js"></script>
     <script src="js/utils/tree.js"></script>
+    <script src="js/utils/labeled_tree.js"></script>
     <script src="js/algorithms/right_heavy.js"></script>
     <script src="js/algorithms/alternated_heavy.js"></script>
     <script src="js/algorithms/random_heavy.js"></script>
     <script src="js/algorithms/completely_random.js"></script>
     <script src="js/algorithms/area_heuristic.js"></script>
     <script src="js/algorithms/ratio_heuristic.js"></script>
+    <script src="js/algorithms/labeled_ratio_heuristic.js"></script>
 
     <script src="complete_tree/complete_tree.js"></script>
 
@@ -80,6 +82,8 @@
                                         onClick="change_algorithm('area_heuristic')">Area Heuristic</button>
                                     <button class="dropdown-item" type="button"
                                         onClick="change_algorithm('ratio_heuristic')">Ratio Heuristic</button>
+                                    <button class="dropdown-item" type="button"
+                                        onClick="change_algorithm('labeled_ratio_heuristic')">Labeled Ratio Heuristic</button>
                                 </ul>
                             </span>
                             <span class="dropdown align-middle">
