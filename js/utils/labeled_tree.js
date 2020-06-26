@@ -51,7 +51,7 @@ function labeled_draw_tree(tree_node) {
                 .attr("x", node => node.apoint[0] * unit_length)
                 .attr("y", node => node.apoint[1] * unit_length + 5)
                 .text(node => node.label)
-                .attr("style", "text-anchor: middle; font-size: 1000px;")
+                .attr("style", "text-anchor: middle;")
         })
 
 }
@@ -91,7 +91,7 @@ function labeled_redraw_tree(tree_node) {
         .attr("x", node => node.apoint[0] * unit_length)
         .attr("y", node => node.apoint[1] * unit_length + 5)
         .text(node => node.label)
-        .attr("style", "text-anchor: middle; font-size: 100px;")
+        .attr("style", "text-anchor: middle;")
 
 
 }

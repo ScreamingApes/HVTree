@@ -1,4 +1,4 @@
-const unit_length = 50
+const unit_length = 8
 const start_point = [1, 1]
 const radius = 15
 const duration_update = 750
