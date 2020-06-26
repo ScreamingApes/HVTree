@@ -117,6 +117,7 @@ function draw_tree() {
                     .attr("y", node => node.apoint[1] * unit_length)
                     .attr("text-anchor", "middle")
                     .attr("dominant-baseline", "central")
+                    //.attr("style", node => `font-size: ${Math.min(node.label_size[0], node.label_size[1]) * 5}px`)
                     .text(node => node.label)
             })
     }
@@ -134,8 +135,6 @@ function redraw_tree(tree_node) {
         .attr("y1", edge => edge.source.apoint[1] * unit_length)
         .attr("x2", edge => edge.target.apoint[0] * unit_length)
         .attr("y2", edge => edge.target.apoint[1] * unit_length)
-        .attr("stroke", "red")
-        .attr("stroke-width", stroke_width)
 
     const nodes = map_nodes.values()
 
@@ -145,10 +144,6 @@ function redraw_tree(tree_node) {
         .duration(duration_update)
         .attr("cx", node => node.apoint[0] * unit_length)
         .attr("cy", node => node.apoint[1] * unit_length)
-        .attr("r", radius)
-        .attr("fill", "white")
-        .attr("stroke", "blue")
-        .attr("stroke-width", stroke_width)
 
     svg.selectAll("text")
         .data(nodes)
@@ -156,8 +151,5 @@ function redraw_tree(tree_node) {
         .duration(duration_update)
         .attr("x", node => node.apoint[0] * unit_length)
         .attr("y", node => node.apoint[1] * unit_length)
-        .text(node => node.label)
-        .attr("text-anchor", "middle")
-        .attr("dominant-baseline", "central")
 
 }
