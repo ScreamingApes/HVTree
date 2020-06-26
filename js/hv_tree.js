@@ -14,9 +14,9 @@ function get_inner_size() {
 }
 
 function init() {
-    actual_algorithm = 'labeled_ratio_heuristic'
-    actual_filename = 'data/tree30L.json'
-    tree_name = "tree30L"
+    actual_algorithm = 'right_heavy'
+    actual_filename = 'data/tree30.json'
+    tree_name = "tree30"
 
     set_labels()
 
@@ -27,7 +27,7 @@ function init() {
         }))
         .append("g")
         .attr("id", "container")
-    labeled_draw()
+    draw()
 
     const $valueSpan = $('.valueSpan2');
     const $value = $('#customRange11');
@@ -62,10 +62,18 @@ function draw() {
     var svg = d3.select("#canvas")
     svg.select("#container").selectAll('*').remove()
 
-    d3.json(actual_filename)
+    if(actual_filename === "") {
+        size_subtrees(tree)
+        window[actual_algorithm](tree)
+        absolute_points(tree, get_start_point())
+        draw_tree()
+    } else {
+        d3.json(actual_filename)
         .then(function (data) {
             draw_from_data(data)
         })
+    }
+    
 }
 
 function draw_from_data(data) {
@@ -78,6 +86,7 @@ function draw_from_data(data) {
         node.id = element.id
         node.label = element.label
         node.label_size = element.label_size
+        node.offset = {x: 0, y: 0}
 
         if (element.id == 0) {
             tree = node
@@ -101,8 +110,12 @@ function draw_from_data(data) {
     })
     size_subtrees(tree)
     window[actual_algorithm](tree)
-    absolute_points(tree, start_point)
-    draw_tree(map_nodes.values())
+    absolute_points(tree, get_start_point())
+    draw_tree()
+}
+
+function get_start_point(){
+   return [1 + tree.offset.x,1 + tree.offset.y]
 }
 
 function change_filename(filename) {
@@ -110,10 +123,14 @@ function change_filename(filename) {
     tree_name = filename
 
     set_labels()
+    
     draw()
 }
 
 function change_algorithm(algorithm) {
+
+    var prec_algorithm = actual_algorithm
+
     actual_algorithm = algorithm
     if (["completely_random", "random_heavy"].indexOf(algorithm) != -1) {
         document.getElementById("slider").classList.remove("invisible")
@@ -123,7 +140,11 @@ function change_algorithm(algorithm) {
 
     set_labels()
 
-    redraw()
+    if (algorithm === "labeled_ratio_heuristic" || prec_algorithm == "labeled_ratio_heuristic") {
+        draw()
+    } else {
+        redraw()
+    }
 }
 
 function change_treshold(t) {
@@ -133,8 +154,8 @@ function change_treshold(t) {
 
 function redraw() {
     window[actual_algorithm](tree)
-    absolute_points(tree, start_point)
-    redraw_tree(map_nodes.values())
+    absolute_points(tree, get_start_point())
+    redraw_tree()
 }
 
 function change_depth(d) {
@@ -150,6 +171,7 @@ function create_complete_tree() {
         prev_tree_name = tree_name
         tree_name = "complete tree with depth " + depth
         set_labels()
+        actual_filename = ""
     }
 }
 
