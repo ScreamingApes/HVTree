@@ -75,9 +75,11 @@ function draw_tree() {
                     .enter()
                     .append("text")
                     .attr("x", node => node.apoint[0] * labeled_unit_length)
-                    .attr("y", node => node.apoint[1] * labeled_unit_length + node.label_size[1] + 5)
+                    .attr("y", node => node.apoint[1] * labeled_unit_length)
                     .text(node => node.label)
-                    .attr("style", node => `text-anchor: middle; font-size: ${Math.min(node.label_size[0], node.label_size[1]) * 5}px`)
+                    .attr("text-anchor", "middle")
+                    .attr("dominant-baseline", "central")
+                    .attr("style", node => `font-size: ${Math.min(node.label_size[0], node.label_size[1]) * 5}px`)
             })
     } else {
 
