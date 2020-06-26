@@ -77,7 +77,7 @@ function draw_tree() {
                     .attr("x", node => node.apoint[0] * labeled_unit_length)
                     .attr("y", node => node.apoint[1] * labeled_unit_length + node.label_size[1] + 5)
                     .text(node => node.label)
-                    .attr("style", node => `text-anchor: middle; font-size: ${Math.min(node.label_size[0], node.label_size[1]) * 7}px`)
+                    .attr("style", node => `text-anchor: middle; font-size: ${Math.min(node.label_size[0], node.label_size[1]) * 5}px`)
             })
     } else {
 

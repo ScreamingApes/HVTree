@@ -74,7 +74,7 @@ function labeled_ratio_heuristic(tree_node) {
             // caso 3: dx a destra di 1 e sx sotto
             // *************************************
             
-            var h3 = max(center_label.x, sx.offset.x) + max(center_label.x + 1 + dx.offset.x, sx.hlength - sx.offset.x)
+            var h3 = max(center_label.x, sx.offset.x) + max(center_label.x + 1 + dx.hlength, sx.hlength - sx.offset.x)
 
             var v3 = max(center_label.y, dx.offset.y) + max(center_label.y, dx.vlength - dx.offset.y) + 1 + sx.vlength
             
@@ -82,7 +82,7 @@ function labeled_ratio_heuristic(tree_node) {
             // caso 4: sx a destra di 1 e dx sotto
             // *************************************
 
-            var h4 = max(center_label.x, dx.offset.x) + max(center_label.x + 1 + sx.offset.x, dx.hlength - dx.offset.x)
+            var h4 = max(center_label.x, dx.offset.x) + max(center_label.x + 1 + sx.hlength, dx.hlength - dx.offset.x)
 
             var v4 = max(center_label.y, sx.offset.y) + max(center_label.y, sx.vlength - sx.offset.y) + 1 + dx.vlength
                         
@@ -102,8 +102,8 @@ function labeled_ratio_heuristic(tree_node) {
                 case 1:
                     // caso 2: dx sotto di 1 e sx a destra
                   
-                    tree_node.sx.rpoint = [max(center_label.x, dx.hlength - dx.offset.x) + 1 + sx.offset.x, 0]
-                    tree_node.dx.rpoint = [0, center_label.y + 1 + dx.offset.y]
+                    sx.rpoint = [max(center_label.x, dx.hlength - dx.offset.x) + 1 + sx.offset.x, 0]
+                    dx.rpoint = [0, center_label.y + 1 + dx.offset.y]
                     tree_node.offset = {x: max(dx.offset.x, center_label.x), y: max(sx.offset.y, center_label.y)}
                     tree_node.hlength = h2
                     tree_node.vlength = v2
@@ -111,8 +111,8 @@ function labeled_ratio_heuristic(tree_node) {
                 case 2:
                     // caso 3: dx a destra di 1 e sx sotto
                   
-                    tree_node.sx.rpoint = [0, 1 + max(center_label.y, dx.vlength - dx.offset.y) + 1 + sx.offset.y]
-                    tree_node.dx.rpoint = [center_label.x + 1 + dx.offset.x, 0]
+                    sx.rpoint = [0, max(center_label.y, dx.vlength - dx.offset.y) + 1 + sx.offset.y]
+                    dx.rpoint = [center_label.x + 1 + dx.offset.x, 0]
                     tree_node.offset = {x: max(sx.offset.x, center_label.x), y: max(dx.offset.y, center_label.y)}
                     tree_node.hlength = h3
                     tree_node.vlength = v3
@@ -120,8 +120,8 @@ function labeled_ratio_heuristic(tree_node) {
                 case 3:
                     // caso 4: sx a destra di 1 e dx sotto
                    
-                    tree_node.sx.rpoint = [center_label.x + 1 + sx.offset.x, 0]
-                    tree_node.dx.rpoint = [0, 1 + max(center_label.y, sx.vlength - sx.offset.y) + dx.offset.y]
+                    sx.rpoint = [center_label.x + 1 + sx.offset.x, 0]
+                    dx.rpoint = [0, max(center_label.y, sx.vlength - sx.offset.y) + 1 + dx.offset.y]
                     tree_node.offset = {x: max(dx.offset.x, center_label.x), y: max(sx.offset.y, center_label.y)}
                     tree_node.hlength = h4
                     tree_node.vlength = v4
