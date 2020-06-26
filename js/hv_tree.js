@@ -182,13 +182,8 @@ function restore_tree_name() {
 }
 
 function set_labels() {
-    var a = capitalizeFirstLetter(actual_algorithm)
-    a = a.slice(0, a.indexOf("_")) + " " + a.charAt(a.indexOf("_") + 1).toUpperCase() + a.slice(a.indexOf("_") + 2)
-
+    var capitalizeFirstLetter = ([first, ...rest]) => first.toUpperCase() + rest.join("")
+    var algorithm_name = actual_algorithm.split('_').map(capitalizeFirstLetter).join(" ")
     d3.select("#tree_name").text(capitalizeFirstLetter(tree_name + ":"))
-    d3.select("#algorithm_name").text(a)
-}
-
-function capitalizeFirstLetter([first, ...rest]) {
-    return first.toUpperCase() + rest.join("")
+    d3.select("#algorithm_name").text(algorithm_name)
 }
