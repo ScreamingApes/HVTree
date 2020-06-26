@@ -59,12 +59,12 @@ function labeled_ratio_heuristic(tree_node) {
 
         if (one_child(tree_node)) {
             child = tree_node.sx === undefined ? tree_node.dx : tree_node.sx
-            rect_int = rect_intersection(child, {offset: [tree_node.label_size[0] / 2, tree_node.label_size[1] / 2], label_size: tree_node.label_size})
+            rect_int = rect_intersection(child, { offset: [tree_node.label_size[0] / 2, tree_node.label_size[1] / 2], label_size: tree_node.label_size })
             // primo caso: child a destra a (1, 0)
             var h1 = tree_node.label_size[0] + 1 + child.hlength
             var v1 = rect_int.vlength + (child.vlength - rect_int.vlength) + (tree_node.label_size[1] - rect_int.vlength)
 
-            
+
             // secondo caso: child sotto a (0, 1)
             var h2 = rect_int.hlength + (child.hlength - rect_int.hlength) + (tree_node.label_size[0] - rect_int.hlength)
             var v2 = tree_node.label_size[1] + 1 + child.vlength
@@ -87,19 +87,14 @@ function labeled_ratio_heuristic(tree_node) {
             // calcolo l'intersezione
             rect_int = rect_intersection(tree_node.sx, tree_node.dx)
 
+            // *************************************
             // caso 1: sx sotto di 1 e ds a destra 
+            // *************************************
 
             // CALCOLO H_LENGTH
-            // se sx.offset.x > tree_node.label_size[0]
-            //      h_length = sx.h_lenght + 1 + dx.h_lenght
-            // altrimenti
-            //      h_length = tree_node.label_size[0] / 2 + sx.h_length - sx.offset.x + 1 + dx.h_length
+            // h_length = max(tree_node.label_size[0]/2, tree_node.sx.offset[0]) + max(tree_node.label_size[0]/2, tree_node.sx.hlength - tree_node.sx.offset[0]) + 1 + tree_node.dx.offset[0]
 
-            if (tree_node.sx.offset[0] > tree_node.label_size[0]) {
-                h1 = tree_node.sx.h_lenght + 1 + tree_node.dx.h_lenght
-            } else {
-                h1 = tree_node.label_size[0] / 2 + tree_node.sx.hlength - tree_node.sx.offset[0] + 1 + tree_node.dx.hlength
-            }
+            h1 = Math.max(tree_node.label_size[0] / 2, tree_node.sx.offset[0]) + Math.max(tree_node.label_size[0] / 2, tree_node.sx.hlength - tree_node.sx.offset[0]) + 1 + tree_node.dx.offset[0]
 
             // CALCOLO V_LENGTH
             // rect_int <- intersezione(rect_sx, rect_dx)
@@ -107,19 +102,15 @@ function labeled_ratio_heuristic(tree_node) {
 
             v1 = rect_int.vlength + (tree_node.dx.vlength - rect_int.vlength) + (tree_node.sx.vlength - rect_int.vlength)
 
+
+            // *************************************
             // caso 2: dx sotto di 1 e sx a destra
+            // *************************************
 
-            // CALCOLO H_LENGTH
-            // se dx.offset.x > tree_node.label_size[0]
-            //      h_lenght = sx.h_lenght + 1 + dx.h_lenght
-            // altrimenti
-            //      h_length = tree_node.label_size[0] / 2 + dx.h_length - dx.offset.x + 1 + sx.h_lenght 
+            // h_length = max(tree_node.label_size[0]/2, tree_node.dx.offset[0]) + max(tree_node.label_size[0]/2, tree_node.dx.hlength - tree_node.dx.offset[0]) + 1 + tree_node.sx.offset[0]   
 
-            if (tree_node.dx.offset[0] > tree_node.label_size[0]) {
-                h2 = tree_node.sx.hlength + tree_node.dx.hlength + 1
-            } else {
-                h2 = tree_node.label_size[0] / 2 + tree_node.dx.hlength - tree_node.dx.offset[0] + 1 + tree_node.sx.hlength
-            }
+            h1 = Math.max(tree_node.label_size[0] / 2, tree_node.dx.offset[0]) + Math.max(tree_node.label_size[0] / 2, tree_node.dx.hlength - tree_node.dx.offset[0]) + 1 + tree_node.sx.offset[0]
+
 
             // CALCOLO V_LENGTH
             // rect_int <- intersezione(rect_sx, rect_dx)
@@ -127,7 +118,10 @@ function labeled_ratio_heuristic(tree_node) {
 
             v2 = rect_int.vlength + (tree_node.dx.vlength - rect_int.vlength) + (tree_node.sx.vlength - rect_int.vlength)
 
+
+            // *************************************
             // caso 3: dx a destra di 1 e sx sotto
+            // *************************************
 
             // CALCOLO H_LENGTH
             // rect_int <- intersezione(rect_sx, rect_dx)
@@ -147,7 +141,11 @@ function labeled_ratio_heuristic(tree_node) {
                 v3 = tree_node.label_size[1] / 2 + tree_node.dx.vlength - tree_node.dx.offset[1] + 1 + tree_node.sx.vlength
             }
 
+
+            // *************************************
             // caso 4: sx a destra di 1 e dx sotto
+            // *************************************
+
 
             // CALCOLO H_LENGTH
             // rect_int <- intersezione(rect_sx, rect_dx)
@@ -180,8 +178,8 @@ function labeled_ratio_heuristic(tree_node) {
                     // tree_node.offset.y = Math.max(dx.offset.y, tree_node.label_size[1])
 
                     tree_node.sx.rpoint = [0, tree_node.label_size[1] / 2 + 1 + tree_node.sx.offset[1]]
-                    tree_node.dx.rpoint = [Math.max(tree_node.label_size[0]/2,tree_node.sx.hlength - tree_node.sx.offset[0])+ 1 + tree_node.dx.offset[0], 0]
-                    tree_node.offset = [Math.max(tree_node.sx.offset[0], tree_node.label_size[0]/2), Math.max(tree_node.dx.offset[1], tree_node.label_size[1]/2)]
+                    tree_node.dx.rpoint = [Math.max(tree_node.label_size[0] / 2, tree_node.sx.hlength - tree_node.sx.offset[0]) + 1 + tree_node.dx.offset[0], 0]
+                    tree_node.offset = [Math.max(tree_node.sx.offset[0], tree_node.label_size[0] / 2), Math.max(tree_node.dx.offset[1], tree_node.label_size[1] / 2)]
                     tree_node.hlength = h1
                     tree_node.vlength = v1
                     break;
@@ -192,9 +190,9 @@ function labeled_ratio_heuristic(tree_node) {
                     // tree_node.offset.x = Math.max(dx.offset.x, tree_node.label_size[0])
                     // tree_node.offset.y = Math.max(sx.offset.y, tree_node.label_size[1])
 
-                    tree_node.sx.rpoint = [Math.max(tree_node.label_size[0]/2,tree_node.dx.hlength - tree_node.dx.offset[0]) + 1 + tree_node.sx.offset[0], 0]
+                    tree_node.sx.rpoint = [Math.max(tree_node.label_size[0] / 2, tree_node.dx.hlength - tree_node.dx.offset[0]) + 1 + tree_node.sx.offset[0], 0]
                     tree_node.dx.rpoint = [0, tree_node.label_size[1] / 2 + 1 + tree_node.dx.offset[1]]
-                    tree_node.offset = [Math.max(tree_node.dx.offset[0], tree_node.label_size[0]/2), Math.max(tree_node.sx.offset[1], tree_node.label_size[1]/2)]
+                    tree_node.offset = [Math.max(tree_node.dx.offset[0], tree_node.label_size[0] / 2), Math.max(tree_node.sx.offset[1], tree_node.label_size[1] / 2)]
                     tree_node.hlength = h2
                     tree_node.vlength = v2
                     break;
@@ -205,9 +203,9 @@ function labeled_ratio_heuristic(tree_node) {
                     // tree_node.offset.x = Math.max(sx.offset.x, tree_node.label_size[0])
                     // tree_node.offset.y = Math.max(dx.offset.y, tree_node.label_size[1])
 
-                    tree_node.sx.rpoint = [0, 1 + Math.max(tree_node.label_size[1]/2, tree_node.dx.vlength - tree_node.dx.offset[1]) +1+ tree_node.sx.offset[1]]
+                    tree_node.sx.rpoint = [0, 1 + Math.max(tree_node.label_size[1] / 2, tree_node.dx.vlength - tree_node.dx.offset[1]) + 1 + tree_node.sx.offset[1]]
                     tree_node.dx.rpoint = [tree_node.label_size[0] / 2 + 1 + tree_node.dx.offset[0], 0]
-                    tree_node.offset = [Math.max(tree_node.sx.offset[0], tree_node.label_size[0]/2), Math.max(tree_node.dx.offset[1], tree_node.label_size[1]/2)]
+                    tree_node.offset = [Math.max(tree_node.sx.offset[0], tree_node.label_size[0] / 2), Math.max(tree_node.dx.offset[1], tree_node.label_size[1] / 2)]
                     tree_node.hlength = h3
                     tree_node.vlength = v3
                     break;
@@ -219,8 +217,8 @@ function labeled_ratio_heuristic(tree_node) {
                     // tree_node.offset.y = Math.max(sx.offset.y, tree_node.label_size[1])
 
                     tree_node.sx.rpoint = [tree_node.label_size[0] / 2 + 1 + tree_node.sx.offset[0], 0]
-                    tree_node.dx.rpoint = [0, 1 + Math.max(tree_node.label_size[1]/2, tree_node.sx.vlength - tree_node.sx.offset[1]) + tree_node.dx.offset[1]]
-                    tree_node.offset = [Math.max(tree_node.dx.offset[0], tree_node.label_size[0]/2), Math.max(tree_node.sx.offset[1], tree_node.label_size[1]/2)]
+                    tree_node.dx.rpoint = [0, 1 + Math.max(tree_node.label_size[1] / 2, tree_node.sx.vlength - tree_node.sx.offset[1]) + tree_node.dx.offset[1]]
+                    tree_node.offset = [Math.max(tree_node.dx.offset[0], tree_node.label_size[0] / 2), Math.max(tree_node.sx.offset[1], tree_node.label_size[1] / 2)]
                     tree_node.hlength = h4
                     tree_node.vlength = v4
                     break;
