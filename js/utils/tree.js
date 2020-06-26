@@ -114,9 +114,10 @@ function draw_tree() {
                     .enter()
                     .append("text")
                     .attr("x", node => node.apoint[0] * unit_length)
-                    .attr("y", node => node.apoint[1] * unit_length + 5)
+                    .attr("y", node => node.apoint[1] * unit_length)
+                    .attr("text-anchor", "middle")
+                    .attr("dominant-baseline", "central")
                     .text(node => node.label)
-                    .attr("style", "text-anchor: middle;")
             })
     }
 }
@@ -154,8 +155,9 @@ function redraw_tree(tree_node) {
         .transition()
         .duration(duration_update)
         .attr("x", node => node.apoint[0] * unit_length)
-        .attr("y", node => node.apoint[1] * unit_length + 5)
+        .attr("y", node => node.apoint[1] * unit_length)
         .text(node => node.label)
-        .attr("style", "text-anchor: middle;")
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "central")
 
 }
