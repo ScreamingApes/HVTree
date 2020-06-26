@@ -61,13 +61,13 @@ function labeled_ratio_heuristic(tree_node) {
             child = tree_node.sx === undefined ? tree_node.dx : tree_node.sx
             rect_int = rect_intersection(child, {offset: [tree_node.label_size[0] / 2, tree_node.label_size[1] / 2], label_size: tree_node.label_size})
             // primo caso: child a destra a (1, 0)
-            var h1 = tree_node.label_size[0] + 1 + child.label_size[0]
+            var h1 = tree_node.label_size[0] + 1 + child.hlength
             var v1 = rect_int.vlength + (child.vlength - rect_int.vlength) + (tree_node.label_size[1] - rect_int.vlength)
 
             
             // secondo caso: child sotto a (0, 1)
             var h2 = rect_int.hlength + (child.hlength - rect_int.hlength) + (tree_node.label_size[0] - rect_int.hlength)
-            var v2 = tree_node.label_size[1] + 1 + child.label_size[1]
+            var v2 = tree_node.label_size[1] + 1 + child.vlength
 
 
             if (h1 / v1 <= h2 / v2) {
@@ -180,8 +180,8 @@ function labeled_ratio_heuristic(tree_node) {
                     // tree_node.offset.y = Math.max(dx.offset.y, tree_node.label_size[1])
 
                     tree_node.sx.rpoint = [0, tree_node.label_size[1] / 2 + 1 + tree_node.sx.offset[1]]
-                    tree_node.dx.rpoint = [tree_node.sx.hlength - tree_node.sx.offset[0] + 1 + tree_node.dx.offset[0], 0]
-                    tree_node.offset = [Math.max(tree_node.sx.offset[0], tree_node.label_size[0]), Math.max(tree_node.dx.offset[1], tree_node.label_size[1])]
+                    tree_node.dx.rpoint = [Math.max(tree_node.label_size[0]/2,tree_node.sx.hlength - tree_node.sx.offset[0])+ 1 + tree_node.dx.offset[0], 0]
+                    tree_node.offset = [Math.max(tree_node.sx.offset[0], tree_node.label_size[0]/2), Math.max(tree_node.dx.offset[1], tree_node.label_size[1]/2)]
                     tree_node.hlength = h1
                     tree_node.vlength = v1
                     break;
@@ -192,9 +192,9 @@ function labeled_ratio_heuristic(tree_node) {
                     // tree_node.offset.x = Math.max(dx.offset.x, tree_node.label_size[0])
                     // tree_node.offset.y = Math.max(sx.offset.y, tree_node.label_size[1])
 
-                    tree_node.sx.rpoint = [tree_node.dx.hlength - tree_node.dx.offset[0] + 1 + tree_node.sx.offset[0], 0]
+                    tree_node.sx.rpoint = [Math.max(tree_node.label_size[0]/2,tree_node.dx.hlength - tree_node.dx.offset[0]) + 1 + tree_node.sx.offset[0], 0]
                     tree_node.dx.rpoint = [0, tree_node.label_size[1] / 2 + 1 + tree_node.dx.offset[1]]
-                    tree_node.offset = [Math.max(tree_node.dx.offset[0], tree_node.label_size[0]), Math.max(tree_node.sx.offset[1], tree_node.label_size[1])]
+                    tree_node.offset = [Math.max(tree_node.dx.offset[0], tree_node.label_size[0]/2), Math.max(tree_node.sx.offset[1], tree_node.label_size[1]/2)]
                     tree_node.hlength = h2
                     tree_node.vlength = v2
                     break;
@@ -205,9 +205,9 @@ function labeled_ratio_heuristic(tree_node) {
                     // tree_node.offset.x = Math.max(sx.offset.x, tree_node.label_size[0])
                     // tree_node.offset.y = Math.max(dx.offset.y, tree_node.label_size[1])
 
-                    tree_node.sx.rpoint = [0, 1 + tree_node.dx.vlength - tree_node.dx.offset[1]]
+                    tree_node.sx.rpoint = [0, 1 + Math.max(tree_node.label_size[1]/2, tree_node.dx.vlength - tree_node.dx.offset[1]) +1+ tree_node.sx.offset[1]]
                     tree_node.dx.rpoint = [tree_node.label_size[0] / 2 + 1 + tree_node.dx.offset[0], 0]
-                    tree_node.offset = [Math.max(tree_node.sx.offset[0], tree_node.label_size[0]), Math.max(tree_node.dx.offset[1], tree_node.label_size[1])]
+                    tree_node.offset = [Math.max(tree_node.sx.offset[0], tree_node.label_size[0]/2), Math.max(tree_node.dx.offset[1], tree_node.label_size[1]/2)]
                     tree_node.hlength = h3
                     tree_node.vlength = v3
                     break;
@@ -219,8 +219,8 @@ function labeled_ratio_heuristic(tree_node) {
                     // tree_node.offset.y = Math.max(sx.offset.y, tree_node.label_size[1])
 
                     tree_node.sx.rpoint = [tree_node.label_size[0] / 2 + 1 + tree_node.sx.offset[0], 0]
-                    tree_node.dx.rpoint = [0, 1 + tree_node.sx.vlength - tree_node.sx.offset[1]]
-                    tree_node.offset = [Math.max(tree_node.dx.offset[0], tree_node.label_size[0]), Math.max(tree_node.sx.offset[1], tree_node.label_size[1])]
+                    tree_node.dx.rpoint = [0, 1 + Math.max(tree_node.label_size[1]/2, tree_node.sx.vlength - tree_node.sx.offset[1]) + tree_node.dx.offset[1]]
+                    tree_node.offset = [Math.max(tree_node.dx.offset[0], tree_node.label_size[0]/2), Math.max(tree_node.sx.offset[1], tree_node.label_size[1]/2)]
                     tree_node.hlength = h4
                     tree_node.vlength = v4
                     break;

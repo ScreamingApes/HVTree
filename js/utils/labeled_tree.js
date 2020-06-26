@@ -36,10 +36,10 @@ function labeled_draw_tree(tree_node) {
         .append("rect")
         .transition()
         .duration(duration_enter)
-        .attr("x", node => node.apoint[0] * unit_length - (node.label_size[0]/2))
-        .attr("y", node => node.apoint[1] * unit_length - (node.label_size[1]/2))
-        .attr("width", node => node.label_size[0])
-        .attr("height", node => node.label_size[1])
+        .attr("x", node => node.apoint[0] * unit_length - (unit_length * node.label_size[0]/2))
+        .attr("y", node => node.apoint[1] * unit_length - (unit_length * node.label_size[1]/2))
+        .attr("width", node => node.label_size[0] * unit_length)
+        .attr("height", node => node.label_size[1] * unit_length)
         .attr("fill", "white")
         .attr("stroke", "blue")
         .attr("stroke-width", 3)
@@ -51,7 +51,7 @@ function labeled_draw_tree(tree_node) {
                 .attr("x", node => node.apoint[0] * unit_length)
                 .attr("y", node => node.apoint[1] * unit_length + 5)
                 .text(node => node.label)
-                .attr("style", "text-anchor: middle;")
+                .attr("style", "text-anchor: middle; font-size: 1000px;")
         })
 
 }
@@ -76,10 +76,10 @@ function labeled_redraw_tree(tree_node) {
         .data(tree_node)
         .transition()
         .duration(duration_update)
-        .attr("x", node => node.apoint[0] * unit_length - (node.label_size[0]/2))
-        .attr("y", node => node.apoint[1] * unit_length - (node.label_size[1]/2))
-        .attr("width", node => node.label_size[0])
-        .attr("height", node => node.label_size[1])
+        .attr("x", node => node.apoint[0] * unit_length - (unit_length * node.label_size[0]/2))
+        .attr("y", node => node.apoint[1] * unit_length - (unit_length * node.label_size[1]/2))
+        .attr("width", node => node.label_size[0] * unit_length)
+        .attr("height", node => node.label_size[1] * unit_length)
         .attr("fill", "white")
         .attr("stroke", "blue")
         .attr("stroke-width", 3)
@@ -91,7 +91,7 @@ function labeled_redraw_tree(tree_node) {
         .attr("x", node => node.apoint[0] * unit_length)
         .attr("y", node => node.apoint[1] * unit_length + 5)
         .text(node => node.label)
-        .attr("style", "text-anchor: middle;")
+        .attr("style", "text-anchor: middle; font-size: 100px;")
 
 
 }
