@@ -1,5 +1,5 @@
 const unit_length = 50
-const labeled_unit_length = 10
+const labeled_unit_length = 8
 const start_point = [4.8, 4.5]
 const radius = 15
 const duration_update = 750

@@ -62,18 +62,18 @@ function draw() {
     var svg = d3.select("#canvas")
     svg.select("#container").selectAll('*').remove()
 
-    if(actual_filename === "") {
+    if (actual_filename === "") {
         size_subtrees(tree)
         window[actual_algorithm](tree)
         absolute_points(tree, get_start_point())
         draw_tree()
     } else {
         d3.json(actual_filename)
-        .then(function (data) {
-            draw_from_data(data)
-        })
+            .then(function (data) {
+                draw_from_data(data)
+            })
     }
-    
+
 }
 
 function draw_from_data(data) {
@@ -86,7 +86,7 @@ function draw_from_data(data) {
         node.id = element.id
         node.label = element.label
         node.label_size = element.label_size
-        node.offset = {x: 0, y: 0}
+        node.offset = { x: 0, y: 0 }
 
         if (element.id == 0) {
             tree = node
@@ -114,8 +114,8 @@ function draw_from_data(data) {
     draw_tree()
 }
 
-function get_start_point(){
-   return [1 + tree.offset.x,1 + tree.offset.y]
+function get_start_point() {
+    return [1 + tree.offset.x, 1 + tree.offset.y]
 }
 
 function change_filename(filename) {
@@ -123,7 +123,7 @@ function change_filename(filename) {
     tree_name = filename
 
     set_labels()
-    
+
     draw()
 }
 
@@ -141,6 +141,7 @@ function change_algorithm(algorithm) {
     set_labels()
 
     if (algorithm === "labeled_ratio_heuristic" || prec_algorithm == "labeled_ratio_heuristic") {
+        d3.select("#zoom_reset").on("click")()
         draw()
     } else {
         redraw()
