@@ -1,8 +1,6 @@
 var tree = {}
 var map_nodes = d3.map({})
 var tree_edges = []
-const width = window.innerWidth
-const height = window.innerHeight
 var actual_algorithm
 var actual_filename
 var threshold = 0.5
@@ -20,7 +18,8 @@ function init() {
 
     set_labels()
 
-    // create svg
+    const [width, height] = get_inner_size()
+
     var svg = d3.select("#canvas").attr("width", width).attr("height", height)
         .call(d3.zoom().on("zoom", function () {
             svg.attr("transform", d3.event.transform)
