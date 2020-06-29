@@ -92,7 +92,7 @@
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li>
                                         <button type="button" class="dropdown-item btn btn-primary" data-toggle="modal"
-                                            data-target="#myModal">
+                                            data-target="#completeTreeModal">
                                             Create Complete Tree
                                         </button>
                                     </li>
@@ -125,9 +125,15 @@
                                             onclick="document.getElementById('selectedFile').click();" />
                                     </div>
                                 </ul>
-                </li>
-            </ul>
-            </span>
+                            </li>
+                        </ul>
+                    </span>
+                    <span class="btn btn-default">
+                        <a class="fa fa-info-circle fa-lg" id="icona" aria-hidden="true" data-toggle="modal" data-target="#infoModal"></a>
+                    </span>
+                    <span class="btn btn-default">
+                        <a class="fa fa-copyright fa-lg" id="icona" aria-hidden="true" data-toggle="modal" data-target="#creditsModal"></a>
+                    </span>
         </div>
         </div>
         </li>
@@ -157,8 +163,8 @@
         </div>
     </div>
 
-    <!-- The Modal -->
-    <div class="modal" id="myModal">
+    <!-- COMPLETE TREES -->
+    <div class="modal" id="completeTreeModal">
         <div class="modal-dialog">
             <div class="modal-content">
 
@@ -195,6 +201,86 @@
             </div>
         </div>
     </div>
+
+    <!-- INFO -->
+    <div class="modal" id="infoModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header text-center">
+                    <h3 class="modal-title w-100">Algorithms</h3 >
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="form-group col-12">
+                                <h4>Right Heavy</h2>
+                                It performs only horizontal combinations, placing the largest subtree to the right of the smallest subtree, filling an O(n log(n)) area.
+                                <hr>
+                                <h4>Alternated Heavy</h3>
+                                It performs both horizontal and vertical combinations, placing the largest subtree to the right at even depth or to the bottom at odd depth, respectively. The resulting drawing occupies an O(n) area.
+                                <hr>
+                                <h4>Random Heavy</h3>
+                                It performs both horizontal and vertical combinations, placing the largest subtree to the bottom of the smallest subtree, with a probability setted by the user.
+                                <hr>
+                                <h4>Area Heuristic</h3>
+                                It places the subtrees in such a way that the occupied area is smaller.
+                                <hr>
+                                <h4>Ratio Heuristic</h3>
+                                It places the subtrees in such a way that the ratio of the resulting drawing is about 1.
+                                <hr>
+                                <h4>Labeled Ratio Heuristic</h3>
+                                Same of Ratio Heuristic, but each node has a width and height setted by the user.
+
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Credits -->
+    <div class="modal" id="creditsModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header text-center">
+                    <h3 class="modal-title w-100">Credits</h3>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="form-group col-12">
+                                All credits to <a href="https://github.com/gmgigi96">Gianmaria Del Monte</a> and <a href="https://github.com/ramorimo">Omar Elsayed</a>, 2020.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <script>
         $(document).ready(function () {
             init()

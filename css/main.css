@@ -1,3 +1,11 @@
 .pointer {
     cursor: pointer;
 }
+
+#icona{
+    color: grey;
+}
+
+#icona:hover{
+    color: lightgray;
+}
