@@ -6,15 +6,16 @@ if len(argv) != 2:
     print(f"Usage: {argv[0]} <height>")
     exit(-1)
 
-id_nodes = -1
-id_edges = -1
-nodes, edges = [], []
-
 
 def complete_tree(height):
 
+    id_nodes = -1
+    id_edges = -1
+    nodes, edges = [], []
+
     def ct(height):
-        global id_edges, id_nodes
+        
+        nonlocal id_nodes, id_edges
         id_nodes += 1
         #id_nodes += 1
         if height == 0:
